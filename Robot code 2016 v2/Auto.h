@@ -15,7 +15,7 @@ private:
 	CANTalon *leftBackMotor;
 	CANTalon *rightBackMotor;
 	CANTalon *leftFrontMotor;
-	CANTalon *rightFrontMotor;
+	CANTalon *rightFrontMotor; //TODO add firing motors
 
 	Preferences *prefs;
 
@@ -24,9 +24,27 @@ private:
 	int backRightMotorCANTalonID;
 	int backLeftMotorCANTalonID;
 
-	void allSpeedSet(double s);
-	void leftSpeedSet(double s);
-	void rightSpeedSet(double s);
+	SendableChooser *turnChooser;
+	const std::string autoStraight;
+	const std::string autoLeft;
+	const std::string autoRight;
+	std::string turnSelected;
+	SendableChooser *rotateChooser;
+	const std::string autoRotateNone;
+	const std::string autoRotateLeft;
+	const std::string autoRotateRight;
+	std::string rotateSelected;
+
+	int state;
+	int leftEncoderPosition;
+	int rightEncoderPosition;
+	int toBeReplaced; //TODO remove this later
+
+	void driveForward(double speed);
+	void driveBackward(double speed);
+	void driveTurnLeft(double speed);
+	void driveTurnRight(double speed);
+	void driveStop();
 
 public:
 	void AutoInit();
