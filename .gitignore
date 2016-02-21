@@ -1,4 +1,3 @@
 # Ignore Macintosh OS X metadata files
 **/.DS_Store
 .metadata/*
-.project
