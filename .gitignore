@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-# Ignore Macintosh OS X metadata files
+Ignore Macintosh OS X metadata files
 **/.DS_Store
 .metadata/*
-.project
 =======
 # Windows image file caches
 Thumbs.db
@@ -54,4 +52,3 @@ Temporary Items
 
 #Eclipse files
 Debug/*
->>>>>>> 707a443ad9ea7a31c49fc39c67dcdd8cf44fe1bc
