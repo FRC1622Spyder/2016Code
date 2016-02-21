@@ -20,6 +20,7 @@ void Prefs::PrefsInit() {
 	prefs->PutInt("armSolenoidRetractPCMPort", 1);
 	prefs->PutInt("shooterSolenoidExtend", 2);
 
+<<<<<<< HEAD
 
 	// CANTalon IDs
 	prefs->PutInt("frontRightMotorCANTalonID", 2);
@@ -31,6 +32,21 @@ void Prefs::PrefsInit() {
 	prefs->PutInt("liftMotorCANTalonID", 1);  //not implemented on robot yet
 	prefs->PutInt("shooterTopMotorCANTalonID", 1);  //not implemented on robot yet
 	prefs->PutInt("shooterBottomMotorCANTalonID", 1);  //not implemented on robot yet
+=======
+	//ENCODEr stuffS
+	prefs->PutDouble("wheelCircumfrence", 23);
+
+	// CANTalon IDs
+	prefs->PutInt("frontRightMotorCANTalonID", 1);
+	prefs->PutInt("frontLeftMotorCANTalonID", 5);
+	prefs->PutInt("backRightMotorCANTalonID", 3);
+	prefs->PutInt("backLeftMotorCANTalonID", 4);
+	prefs->PutInt("collectConveyorMotorCANTalonID", 2); //not implemented on robot yet
+	prefs->PutInt("collectArmMotorCANTalonID", 2); //not implemented on robot yet
+	prefs->PutInt("liftMotorCANTalonID", 2);  //not implemented on robot yet
+	prefs->PutInt("shooterTopMotorCANTalonID", 2);  //not implemented on robot yet
+	prefs->PutInt("shooterBottomMotorCANTalonID", 2);  //not implemented on robot yet
+>>>>>>> 707a443ad9ea7a31c49fc39c67dcdd8cf44fe1bc
 
 	// Limit Switch IDs
 	prefs->PutInt("liftLimitSwitchLow", 0);

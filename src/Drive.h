@@ -28,6 +28,11 @@ private:
 	int driveJoystickNumber;
 	int leftAxis;
 	int rightAxis;
+<<<<<<< HEAD
+=======
+	double wheelCircumfrence;
+	double driveRatio;
+>>>>>>> 707a443ad9ea7a31c49fc39c67dcdd8cf44fe1bc
 
 
 	void allSpeedSet(double s);
