@@ -72,11 +72,7 @@ public:
 
 			//Default Auto goes here
 			autoSystem.AutoAutoInit();
-<<<<<<< HEAD
-			camera.CameraAutoInit(); // this subsystem needs to be called last
-=======
 			//camera.CameraAutoInit(); // this subsystem needs to be called last
->>>>>>> 707a443ad9ea7a31c49fc39c67dcdd8cf44fe1bc
 		}
 	}
 
@@ -86,11 +82,7 @@ public:
 		} else {
 			//Default Auto goes here
 			autoSystem.AutoAutoPeriodic();
-<<<<<<< HEAD
-			camera.CameraAutoPeriodic(); // this subsystem needs to be called last
-=======
 			//camera.CameraAutoPeriodic(); // this subsystem needs to be called last
->>>>>>> 707a443ad9ea7a31c49fc39c67dcdd8cf44fe1bc
 		}
 	}
 
