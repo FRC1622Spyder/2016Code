@@ -3,28 +3,18 @@
 #include <cmath>
 #include <iostream>
 
-<<<<<<< HEAD
-=======
 using namespace std;
 
->>>>>>> 707a443ad9ea7a31c49fc39c67dcdd8cf44fe1bc
 void Auto::AutoInit() {
 
 	// get preferences
 	prefs = Preferences::GetInstance();
-<<<<<<< HEAD
-	frontRightMotorCANTalonID = prefs->GetInt("frontRightMotorCANTalonID", 2);
-	backRightMotorCANTalonID = prefs->GetInt("backRightMotorCANTalonID", 3);
-	frontLeftMotorCANTalonID = prefs->GetInt("frontLeftMotorCANTalonID", 5);
-	backLeftMotorCANTalonID = prefs->GetInt("backLeftMotorCANTalonID", 6);
-=======
 	frontRightMotorCANTalonID = prefs->GetInt("frontRightMotorCANTalonID", 1);
 	backRightMotorCANTalonID = prefs->GetInt("backRightMotorCANTalonID", 3);
 	frontLeftMotorCANTalonID = prefs->GetInt("frontLeftMotorCANTalonID", 5);
 	backLeftMotorCANTalonID = prefs->GetInt("backLeftMotorCANTalonID", 4);
 	wheelCircumfrence = prefs->GetDouble("wheelCircumfrence", 23);
 	driveRatio = 8.45;
->>>>>>> 707a443ad9ea7a31c49fc39c67dcdd8cf44fe1bc
 
 	// assign motors and drive joystick
 	leftBackMotor = new CANTalon(backLeftMotorCANTalonID);
@@ -33,10 +23,6 @@ void Auto::AutoInit() {
 	rightFrontMotor = new CANTalon(frontRightMotorCANTalonID);
 
 	// setup motors
-<<<<<<< HEAD
-	leftBackMotor->SetInverted(true);
-	leftFrontMotor->SetInverted(true);
-=======
 	rightBackMotor->SetInverted(true);
 	rightFrontMotor->SetInverted(true);
 
@@ -59,29 +45,18 @@ void Auto::AutoInit() {
 	rightFrontMotor->SetPID(2.0f, 0, 200.0f, 0);
 	leftFrontMotor->SetCloseLoopRampRate(24);
 	rightFrontMotor->SetCloseLoopRampRate(24);
->>>>>>> 707a443ad9ea7a31c49fc39c67dcdd8cf44fe1bc
 }
 
 void Auto::AutoDisable() {
 
-<<<<<<< HEAD
-	leftBackMotor->Set(0);
-	leftFrontMotor->Set(0);
-	rightBackMotor->Set(0);
-	rightFrontMotor->Set(0);
-=======
 	//leftBackMotor->Set(0);
 	//leftFrontMotor->Set(0);
 	//rightBackMotor->Set(0);
 	//rightFrontMotor->Set(0);
->>>>>>> 707a443ad9ea7a31c49fc39c67dcdd8cf44fe1bc
 
 }
 
 void Auto::AutoAutoInit() {
-<<<<<<< HEAD
-	autoLoopCounter = 0;
-=======
 
 	//Prepping auto state
 	autoLoopCounter = 0;
@@ -97,23 +72,12 @@ void Auto::AutoAutoInit() {
 	leftFrontMotor->SetControlMode(CANTalon::ControlMode::kPosition);
 	rightFrontMotor->SetControlMode(CANTalon::ControlMode::kPosition);
 
->>>>>>> 707a443ad9ea7a31c49fc39c67dcdd8cf44fe1bc
 }
 
 void Auto::AutoAutoPeriodic() {
 
 	// Autonomous code goes here
 
-<<<<<<< HEAD
-	if(autoLoopCounter < 250) {
-		allSpeedSet(.2);
-	}
-	else {
-		allSpeedSet(0);
-	}
-	autoLoopCounter++;
-
-=======
 	cout << "Left: " << leftFrontMotor->GetPosition() << endl;
 	cout << "Right: " << rightFrontMotor->GetPosition() << endl;
 
@@ -133,7 +97,6 @@ void Auto::AutoAutoPeriodic() {
 
 	cout << "Left Position: " << leftWheelPosition << endl;
 	cout << "Right Position: " << rightWheelPosition << endl;
->>>>>>> 707a443ad9ea7a31c49fc39c67dcdd8cf44fe1bc
 }
 
 void Auto::AutoTeleopInit() {
@@ -145,34 +108,20 @@ void Auto::AutoTeleopPeriodic() {
 }
 
 void Auto::allSpeedSet(double s) {
-<<<<<<< HEAD
-	leftBackMotor->Set(s);
-	leftFrontMotor->Set(s);
-	rightBackMotor->Set(s);
-=======
 
 	leftFrontMotor->Set(s);
 
->>>>>>> 707a443ad9ea7a31c49fc39c67dcdd8cf44fe1bc
 	rightFrontMotor->Set(s);
 
 }
 
 void Auto::leftSpeedSet(double s) {
-<<<<<<< HEAD
-	leftBackMotor->Set(s);
-=======
 	//leftBackMotor->Set(s);
->>>>>>> 707a443ad9ea7a31c49fc39c67dcdd8cf44fe1bc
 	leftFrontMotor->Set(s);
 }
 
 void Auto::rightSpeedSet(double s) {
-<<<<<<< HEAD
-	rightBackMotor->Set(s);
-=======
 	//rightBackMotor->Set(s);
->>>>>>> 707a443ad9ea7a31c49fc39c67dcdd8cf44fe1bc
 	rightFrontMotor->Set(s);
 
 }

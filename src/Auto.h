@@ -19,13 +19,10 @@ private:
 
 	Preferences *prefs;
 
-<<<<<<< HEAD
-=======
 	double wheelCircumfrence;
 	double driveRatio;
     double targetPosition;
 
->>>>>>> 707a443ad9ea7a31c49fc39c67dcdd8cf44fe1bc
 	int frontRightMotorCANTalonID;
 	int frontLeftMotorCANTalonID;
 	int backRightMotorCANTalonID;
