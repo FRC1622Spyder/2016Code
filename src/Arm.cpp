@@ -11,7 +11,7 @@ void Arm::ArmInit() {
 	pcmCANID = prefs->GetInt("pcmCANID", 7);
 	armSolenoidExtendPCMPort = prefs->GetInt("armSolenoidExtendPCMPort", 0);
 	armSolenoidRetractPCMPort = prefs->GetInt("armSolenoidRetractPCMPort", 1);
-	armTrigger = prefs->GetInt("armTrigger", 8);
+	armTrigger = prefs->GetInt("armTrigger", 5);
 	driveJoystickNumber = prefs->GetInt("driveJoystickNumber", 0);
 
 	armSolenoid = new DoubleSolenoid(pcmCANID, armSolenoidExtendPCMPort,
@@ -38,7 +38,7 @@ void Arm::ArmTeleopInit() {
 void Arm::ArmTeleopPeriodic() {
 	switch (state) {
 	case 0:
-		cout << "Arm: In state 0" << endl;
+		//cout << "Arm: In state 0" << endl;
 		armSolenoid->Set(DoubleSolenoid::Value::kForward);
 		if (stick->GetRawButton(armTrigger)) {
 			state = 2;
@@ -46,7 +46,7 @@ void Arm::ArmTeleopPeriodic() {
 		}
 		break;
 	case 1:
-		cout << "Arm: In state 1" << endl;
+		//cout << "Arm: In state 1" << endl;
 		armSolenoid->Set(DoubleSolenoid::Value::kReverse);
 		if (stick->GetRawButton(armTrigger)) {
 			state = 3;
@@ -54,14 +54,14 @@ void Arm::ArmTeleopPeriodic() {
 		}
 		break;
 	case 2:
-		cout << "Arm: In state 2" << endl;
+		//cout << "Arm: In state 2" << endl;
 		if (!stick->GetRawButton(armTrigger)) {
 			state = 1;
 			break;
 		}
 		break;
 	case 3:
-		cout << "Arm: In state 3" << endl;
+		//cout << "Arm: In state 3" << endl;
 		if (!stick->GetRawButton(armTrigger)) {
 			state = 0;
 			break;

@@ -21,6 +21,7 @@ private:
 
 	double wheelCircumfrence;
 	double driveRatio;
+    double targetPosition;
 
 	int frontRightMotorCANTalonID;
 	int frontLeftMotorCANTalonID;
