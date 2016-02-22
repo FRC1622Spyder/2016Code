@@ -25,10 +25,10 @@ void Prefs::PrefsInit() {
 	prefs->PutDouble("wheelCircumfrence", 23);
 
 	// CANTalon IDs
-	prefs->PutInt("frontRightMotorCANTalonID", 1);
-	prefs->PutInt("frontLeftMotorCANTalonID", 5);
-	prefs->PutInt("backRightMotorCANTalonID", 3);
-	prefs->PutInt("backLeftMotorCANTalonID", 4);
+	prefs->PutInt("frontRightMotorCANTalonID", 4);
+	prefs->PutInt("frontLeftMotorCANTalonID", 3);
+	prefs->PutInt("backRightMotorCANTalonID", 5);
+	prefs->PutInt("backLeftMotorCANTalonID", 1);
 	prefs->PutInt("collectConveyorMotorCANTalonID", 2); //not implemented on robot yet
 	prefs->PutInt("collectArmMotorCANTalonID", 2); //not implemented on robot yet
 	prefs->PutInt("liftMotorCANTalonID", 2);  //not implemented on robot yet
@@ -53,6 +53,7 @@ void Prefs::PrefsInit() {
 	prefs->PutInt("liftUpButton", 4);
 	prefs->PutInt("liftDownButton", 2);
 	prefs->PutInt("shooterTrigger", 8);
+	prefs->PutInt("halfSpeedButton", 6);
 
 	// auxJoyStick IDs
 	prefs->PutInt("auxJoystickNumber", 1);
