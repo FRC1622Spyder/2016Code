@@ -27,24 +27,24 @@ void Auto::AutoInit() {
 	rightFrontMotor->SetInverted(true);
 
 	//Set back motors to follow front
-	rightBackMotor->SetControlMode(CANSpeedController::kFollower);
-	rightBackMotor->Set(1);
+	leftFrontMotor->SetControlMode(CANSpeedController::kFollower);
+	leftFrontMotor->Set(1);
 
-	leftBackMotor->SetControlMode(CANSpeedController::kFollower);
-	leftBackMotor->Set(5);
+	rightFrontMotor->SetControlMode(CANSpeedController::kFollower);
+	rightFrontMotor->Set(5);
 
 	//Setup encoders
-	rightFrontMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
-	rightFrontMotor->ConfigEncoderCodesPerRev(20);
+	rightBackMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
+	rightBackMotor->ConfigEncoderCodesPerRev(20);
 
-	leftFrontMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
-	leftFrontMotor->ConfigEncoderCodesPerRev(20);
+	leftBackMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
+	leftBackMotor->ConfigEncoderCodesPerRev(20);
 
 	//set closed loop gains
-	leftFrontMotor->SetPID(2.0f, 0, 200.0f, 0);
-	rightFrontMotor->SetPID(2.0f, 0, 200.0f, 0);
-	leftFrontMotor->SetCloseLoopRampRate(24);
-	rightFrontMotor->SetCloseLoopRampRate(24);
+	leftBackMotor->SetPID(2.0f, 0, 200.0f, 0);
+	rightBackMotor->SetPID(2.0f, 0, 200.0f, 0);
+	leftBackMotor->SetCloseLoopRampRate(24);
+	rightBackMotor->SetCloseLoopRampRate(24);
 }
 
 void Auto::AutoDisable() {
@@ -60,17 +60,17 @@ void Auto::AutoAutoInit() {
 
 	//Prepping auto state
 	autoLoopCounter = 0;
-	leftFrontMotor->SetPosition(0);
-	rightFrontMotor->SetPosition(0);
+	leftBackMotor->SetPosition(0);
+	rightBackMotor->SetPosition(0);
 
 
 	//0 the sensor and position
-	leftFrontMotor->SetPosition(0);
-	rightFrontMotor->SetPosition(0);
+	leftBackMotor->SetPosition(0);
+	rightBackMotor->SetPosition(0);
 	targetPosition = 0.0;
 
-	leftFrontMotor->SetControlMode(CANTalon::ControlMode::kPosition);
-	rightFrontMotor->SetControlMode(CANTalon::ControlMode::kPosition);
+	leftBackMotor->SetControlMode(CANTalon::ControlMode::kPosition);
+	rightBackMotor->SetControlMode(CANTalon::ControlMode::kPosition);
 
 }
 
@@ -78,21 +78,21 @@ void Auto::AutoAutoPeriodic() {
 
 	// Autonomous code goes here
 
-	cout << "Left: " << leftFrontMotor->GetPosition() << endl;
-	cout << "Right: " << rightFrontMotor->GetPosition() << endl;
+	cout << "Left: " << leftBackMotor->GetPosition() << endl;
+	cout << "Right: " << rightBackMotor->GetPosition() << endl;
 
-	cout << "Left Speed: " << leftFrontMotor->GetSpeed() << endl;
-	cout << "Right Speed: " << rightFrontMotor->GetSpeed() << endl;
+	cout << "Left Speed: " << leftBackMotor->GetSpeed() << endl;
+	cout << "Right Speed: " << rightBackMotor->GetSpeed() << endl;
 
 	double inches = 36;
 	double leftWheelPosition;
 	double rightWheelPosition;
 
 	targetPosition = (inches / wheelCircumfrence) * driveRatio;
-	leftFrontMotor->Set(targetPosition);
-    rightFrontMotor->Set(targetPosition*-1);
-    leftWheelPosition=leftFrontMotor->GetPosition();
-    rightWheelPosition=-1*rightFrontMotor->GetPosition();
+	leftBackMotor->Set(targetPosition);
+    rightBackMotor->Set(targetPosition*-1);
+    leftWheelPosition=leftBackMotor->GetPosition();
+    rightWheelPosition=-1*rightBackMotor->GetPosition();
 
 
 	cout << "Left Position: " << leftWheelPosition << endl;
@@ -109,19 +109,19 @@ void Auto::AutoTeleopPeriodic() {
 
 void Auto::allSpeedSet(double s) {
 
-	leftFrontMotor->Set(s);
+	leftBackMotor->Set(s);
 
-	rightFrontMotor->Set(s);
+	rightBackMotor->Set(s);
 
 }
 
 void Auto::leftSpeedSet(double s) {
 	//leftBackMotor->Set(s);
-	leftFrontMotor->Set(s);
+	leftBackMotor->Set(s);
 }
 
 void Auto::rightSpeedSet(double s) {
 	//rightBackMotor->Set(s);
-	rightFrontMotor->Set(s);
+	rightBackMotor->Set(s);
 
 }

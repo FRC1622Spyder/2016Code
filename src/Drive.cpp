@@ -9,10 +9,10 @@ void Drive::DriveInit() {
 
 	// get preferences
 	prefs = Preferences::GetInstance();
-	frontRightMotorCANTalonID = prefs->GetInt("frontRightMotorCANTalonID", 1);
-	backRightMotorCANTalonID = prefs->GetInt("backRightMotorCANTalonID", 3);
-	frontLeftMotorCANTalonID = prefs->GetInt("frontLeftMotorCANTalonID", 5);
-	backLeftMotorCANTalonID = prefs->GetInt("backLeftMotorCANTalonID", 4);
+	frontRightMotorCANTalonID = prefs->GetInt("frontRightMotorCANTalonID", 4);
+	backRightMotorCANTalonID = prefs->GetInt("backRightMotorCANTalonID", 5);
+	frontLeftMotorCANTalonID = prefs->GetInt("frontLeftMotorCANTalonID", 3);
+	backLeftMotorCANTalonID = prefs->GetInt("backLeftMotorCANTalonID", 1);
 	driveJoystickNumber = prefs->GetInt("joystickNumber", 0);
 	leftAxis = prefs->GetInt("leftAxis", 1);
 	rightAxis = prefs->GetInt("rightAxis", 3);
@@ -31,18 +31,18 @@ void Drive::DriveInit() {
 	leftFrontMotor->SetInverted(true);
 
 	//Set back motors to follow front
-	rightBackMotor->SetControlMode(CANSpeedController::kFollower);
-	rightBackMotor->Set(1);
+	leftFrontMotor->SetControlMode(CANSpeedController::kFollower);
+	leftFrontMotor->Set(1);
 
-	leftBackMotor->SetControlMode(CANSpeedController::kFollower);
-	leftBackMotor->Set(5);
+	rightFrontMotor->SetControlMode(CANSpeedController::kFollower);
+	rightFrontMotor->Set(5);
 
 	//Setup encoders
-	rightFrontMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
-	rightFrontMotor->ConfigEncoderCodesPerRev(20);
+	leftBackMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
+	leftBackMotor->ConfigEncoderCodesPerRev(20);
 
-	leftFrontMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
-	leftFrontMotor->ConfigEncoderCodesPerRev(20);
+	rightBackMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
+	rightBackMotor->ConfigEncoderCodesPerRev(20);
 
 }
 
@@ -64,17 +64,26 @@ void Drive::DriveAutoPeriodic() {
 }
 
 void Drive::DriveTeleopInit() {
-	leftFrontMotor->SetPosition(0);
-	rightFrontMotor->SetPosition(0);
+	leftBackMotor->SetPosition(0);
+	rightBackMotor->SetPosition(0);
 
 }
 
 void Drive::DriveTeleopPeriodic() {
 	double leftVal;
 	double rightVal;
+	bool halfButtonValue = joy->GetRawButton(prefs->GetInt("halfSpeedButton"));
 
 	leftVal = joy->GetRawAxis(leftAxis);
 	rightVal = joy->GetRawAxis(rightAxis);
+
+	cout << "Drive Left: " << leftVal << endl;
+	cout << "Drive Right: " << rightVal << endl;
+
+	if (halfButtonValue) {
+		leftVal = leftVal / 2;
+		rightVal = rightVal / 2;
+	}
 
 	leftVal = fabs(leftVal) > 0.1 ? leftVal : 0;
 	rightVal = fabs(rightVal) > 0.1 ? rightVal : 0;
@@ -85,33 +94,25 @@ void Drive::DriveTeleopPeriodic() {
 	leftSpeedSet(leftVal);
 	rightSpeedSet(rightVal);
 
-//	cout << "Drive Left: " << leftFrontMotor->GetPosition() << endl;
-//	cout << "Drive Right: " << rightFrontMotor->GetPosition() << endl;
+//	cout << "Drive Left: " << leftBackMotor->GetPosition() << endl;
+//	cout << "Drive Right: " << rightBackMotor->GetPosition() << endl;
 
-//	cout << "Drive Left Speed: " << leftFrontMotor->GetSpeed() << endl;
-//	cout << "Drive Right Speed: " << rightFrontMotor->GetSpeed() << endl;
-
-	/*	halfButtonvalue = joy->GetRawButton(6);
-
-	 if (halfButtonvalue) {
-	 leftVal = leftVal / 2;
-	 rightVal = rightVal / 2;
-	 }
-	 */
+//	cout << "Drive Left Speed: " << leftBackMotor->GetSpeed() << endl;
+//	cout << "Drive Right Speed: " << rightBackMotor->GetSpeed() << endl;
 
 }
 
 void Drive::allSpeedSet(double s) {
-	leftFrontMotor->Set(s);
-	rightFrontMotor->Set(s);
+	leftBackMotor->Set(s);
+	rightBackMotor->Set(s);
 
 }
 
 void Drive::leftSpeedSet(double s) {
-	leftFrontMotor->Set(s);
+	leftBackMotor->Set(s);
 }
 
 void Drive::rightSpeedSet(double s) {
-	rightFrontMotor->Set(s);
+	rightBackMotor->Set(s);
 
 }

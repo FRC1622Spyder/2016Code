@@ -54,6 +54,7 @@ void Prefs::PrefsInit() {
 	prefs->PutInt("liftUpButton", 4);
 	prefs->PutInt("liftDownButton", 2);
 	prefs->PutInt("shooterTrigger", 8);
+	prefs->PutInt("halfSpeedButton", 6);
 
 	// auxJoyStick IDs
 	prefs->PutInt("auxJoystickNumber", 1);
