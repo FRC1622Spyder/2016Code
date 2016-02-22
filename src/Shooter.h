@@ -14,7 +14,7 @@ private:
 	Joystick *shooterJoystick;
 	bool shooterButtonvalue;
 	int ceeout;
-	Solenoid *exsole;
+	DoubleSolenoid *exsole;
 	Timer *rightTimer;
 	DigitalInput *shooterLimitSwitch;
 	DigitalInput *shooterLimitSwitch1;

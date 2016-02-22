@@ -10,7 +10,8 @@ void Shooter::ShooterInit() {
 	shooterSolenoidExtend = prefs->GetInt("shooterSolenoidExtend", 2);
 	shooterSolenoidRetract = prefs->GetInt("shooterSolenoidRetract", 2);
 	shooterTopMotorCANTalonID = prefs->GetInt("shooterTopMotorCANTalonID", 8);
-	shooterBottomMotorCANTalonID = prefs->GetInt("shooterBottomMotorCANTalonID",9);
+	shooterBottomMotorCANTalonID = prefs->GetInt("shooterBottomMotorCANTalonID",
+			9);
 	shooterBallDetectSwitch = prefs->GetInt("shooterBallDetectSwitch", 3);
 	driveJoystickNumber = prefs->GetInt("driveJoystickNumber", 0);
 	shooterTrigger = prefs->GetInt("shooterTrigger", 3);
@@ -31,7 +32,7 @@ void Shooter::ShooterDisable() {
 
 	lowerWheel->Set(0);
 	topWheel->Set(0);
-	exsole->Set(false);
+	exsole->Set(DoubleSolenoid::Value::kReverse);
 }
 
 void Shooter::ShooterAutoInit() {
@@ -77,35 +78,26 @@ void Shooter::ShooterTeleopPeriodic() {
 
 		topWheel->Set(.2);
 		lowerWheel->Set(.2);
-		if (1 == 1) {
+		//note == replace "true" in the next line with code that determines if the shooter motors are up to speed.
+		if (true) {
 			SmartDashboard::PutBoolean("DB/Button 3", true);
 			firePhase++;
 		}
 
 		break;
-	case 3: //check if launch button pressed
 
-		//note == replace "true" in the next line with code that determines if the shooter motors are up to speed.
-		if (true) {
-			firePhase++;
-			ceeout = 0;
-		}
-
-		break;
-	case 4: //fire piston
+	case 3: //fire piston
 
 		exsole->Set(DoubleSolenoid::Value::kForward);
 
 		if (!shooterLimitSwitch->Get()) {
 
-			topWheel->Set(0);
-			lowerWheel->Set(0);
 			firePhase++;
 		}
 
 		break;
 
-	case 5:
+	case 4:
 
 		timer = timer + 1;
 
@@ -115,8 +107,10 @@ void Shooter::ShooterTeleopPeriodic() {
 		}
 		break;
 
-	case 6: //reset piston , deactivate flywheels
+	case 5: //reset piston , deactivate flywheels
 
+		topWheel->Set(0);
+		lowerWheel->Set(0);
 		exsole->Set(DoubleSolenoid::Value::kReverse);
 		firePhase = 0;
 		break;
