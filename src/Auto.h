@@ -27,7 +27,9 @@ private:
 	void allSpeedSet(double s);
 	void leftSpeedSet(double s);
 	void rightSpeedSet(double s);
-
+	int selectToInt(std::string obstacleString);
+	int obstacle;
+	int position;
 public:
 	void AutoInit();
 	void AutoAutoInit();
@@ -35,7 +37,6 @@ public:
 	void AutoTeleopInit();
 	void AutoTeleopPeriodic();
 	void AutoDisable();
-
 };
 
 #endif /* SRC_AUTO_H_ */

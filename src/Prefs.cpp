@@ -63,4 +63,5 @@ void Prefs::PrefsInit() {
 	// Camera Prefs
 	prefs->PutInt("Brightness", 40);
 
+
 }
