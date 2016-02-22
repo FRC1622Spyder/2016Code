@@ -26,6 +26,7 @@ private:
 	Preferences *prefs;
 	int pcmCANID;
 	int shooterSolenoidExtend;
+	int shooterSolenoidRetract;
 	int shooterTopMotorCANTalonID;
 	int shooterBottomMotorCANTalonID;
 	int shooterBallDetectSwitch;
