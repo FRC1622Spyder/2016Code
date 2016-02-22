@@ -37,7 +37,7 @@ private:
 	int shooterTrigger;
 
 
-	bool within5percent(float target,float actual);
+	bool WithinPercent(float target,float actual);
 
 public:
 	void ShooterInit();
