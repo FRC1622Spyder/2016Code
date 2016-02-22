@@ -27,8 +27,8 @@ void Drive::DriveInit() {
 	joy = new Joystick(driveJoystickNumber);
 
 	// setup motors
-	leftBackMotor->SetInverted(true);
-	leftFrontMotor->SetInverted(true);
+	rightBackMotor->SetInverted(true);
+	rightFrontMotor->SetInverted(true);
 
 	//Set back motors to follow front
 	rightBackMotor->SetControlMode(CANSpeedController::kFollower);
@@ -72,9 +72,18 @@ void Drive::DriveTeleopInit() {
 void Drive::DriveTeleopPeriodic() {
 	double leftVal;
 	double rightVal;
+	bool halfButtonvalue = joy->GetRawButton(6);
 
 	leftVal = joy->GetRawAxis(leftAxis);
 	rightVal = joy->GetRawAxis(rightAxis);
+
+	cout << "Drive Left: " << leftVal << endl;
+	cout << "Drive Right: " << rightVal << endl;
+
+	if (halfButtonvalue) {
+		leftVal = leftVal / 2;
+		rightVal = rightVal / 2;
+	}
 
 	leftVal = fabs(leftVal) > 0.1 ? leftVal : 0;
 	rightVal = fabs(rightVal) > 0.1 ? rightVal : 0;
@@ -90,14 +99,6 @@ void Drive::DriveTeleopPeriodic() {
 
 //	cout << "Drive Left Speed: " << leftFrontMotor->GetSpeed() << endl;
 //	cout << "Drive Right Speed: " << rightFrontMotor->GetSpeed() << endl;
-
-	/*	halfButtonvalue = joy->GetRawButton(6);
-
-	 if (halfButtonvalue) {
-	 leftVal = leftVal / 2;
-	 rightVal = rightVal / 2;
-	 }
-	 */
 
 }
 

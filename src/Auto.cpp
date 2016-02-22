@@ -23,8 +23,8 @@ void Auto::AutoInit() {
 	rightFrontMotor = new CANTalon(frontRightMotorCANTalonID);
 
 	// setup motors
-	rightBackMotor->SetInverted(true);
-	rightFrontMotor->SetInverted(true);
+	leftBackMotor->SetInverted(true);
+	leftFrontMotor->SetInverted(true);
 
 	//Set back motors to follow front
 	rightBackMotor->SetControlMode(CANSpeedController::kFollower);
@@ -89,10 +89,10 @@ void Auto::AutoAutoPeriodic() {
 	double rightWheelPosition;
 
 	targetPosition = (inches / wheelCircumfrence) * driveRatio;
-	leftFrontMotor->Set(targetPosition);
-    rightFrontMotor->Set(targetPosition*-1);
-    leftWheelPosition=leftFrontMotor->GetPosition();
-    rightWheelPosition=-1*rightFrontMotor->GetPosition();
+	leftFrontMotor->Set(targetPosition*-1);
+    rightFrontMotor->Set(targetPosition);
+    leftWheelPosition=-1*leftFrontMotor->GetPosition();
+    rightWheelPosition=rightFrontMotor->GetPosition();
 
 
 	cout << "Left Position: " << leftWheelPosition << endl;
