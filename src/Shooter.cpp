@@ -9,22 +9,43 @@ void Shooter::ShooterInit() {
 	pcmCANID = prefs->GetInt("pcmCANID", 7);
 	shooterSolenoidExtend = prefs->GetInt("shooterSolenoidExtend", 2);
 	shooterSolenoidRetract = prefs->GetInt("shooterSolenoidRetract", 2);
-	shooterTopMotorCANTalonID = prefs->GetInt("shooterTopMotorCANTalonID", 8);
-	shooterBottomMotorCANTalonID = prefs->GetInt("shooterBottomMotorCANTalonID",
-			9);
+	shooterTopMotorCANTalonID = prefs->GetInt("shooterTopMotorCANTalonID", 2);
+	shooterBottomMotorCANTalonID = prefs->GetInt("shooterBottomMotorCANTalonID",6);
 	shooterBallDetectSwitch = prefs->GetInt("shooterBallDetectSwitch", 3);
 	driveJoystickNumber = prefs->GetInt("driveJoystickNumber", 0);
-	shooterTrigger = prefs->GetInt("shooterTrigger", 3);
-
+	shooterTrigger = prefs->GetInt("shooterTrigger", 8);
 	firePhase = 0;
 	shooterJoystick = new Joystick(driveJoystickNumber);
 	shooterButtonvalue = false;
 	exsole = new DoubleSolenoid(pcmCANID, shooterSolenoidExtend, shooterSolenoidRetract);
 	rightTimer = new Timer();
 	shooterLimitSwitch = new DigitalInput(shooterBallDetectSwitch);
+	timer = 0;
+	targetSpeed = prefs->GetFloat ("shooterTargetSpeed", 10.0f);
+	actualTopSpeed = 0.0f;
+	actualLowerSpeed = 0.0f;
+
+	//Set up wheels
 	topWheel = new CANTalon(shooterTopMotorCANTalonID);
 	lowerWheel = new CANTalon(shooterBottomMotorCANTalonID);
-	timer = 0;
+	topWheel->SetFeedbackDevice(CANTalon::QuadEncoder);
+	topWheel->ConfigEncoderCodesPerRev(250);//change to 250 before using
+	lowerWheel->SetFeedbackDevice(CANTalon::QuadEncoder);
+	lowerWheel->ConfigEncoderCodesPerRev(250);//change to 250 before using
+	topWheel->SetControlMode(CANSpeedController::kSpeed);
+	lowerWheel->SetControlMode(CANSpeedController::kSpeed);
+	topWheel->Set(0);
+	lowerWheel->Set(0);
+
+	//set closed loop gains
+	topWheel->SelectProfileSlot(0);
+	lowerWheel->SelectProfileSlot(0);
+	topWheel->SetPID(0.0f, 0, 0.0f, 0);
+	lowerWheel->SetPID(0.0f, 0, 0.0f, 0);
+	topWheel->ConfigNominalOutputVoltage(+0.0f, -0.0f);
+	lowerWheel->ConfigNominalOutputVoltage(+0.0f, -0.0f);
+	topWheel->ConfigPeakOutputVoltage(+12.0f, -12.0f);
+	lowerWheel->ConfigPeakOutputVoltage(+12.0f, -12.0f);
 
 }
 
@@ -50,13 +71,15 @@ void Shooter::ShooterAutoPeriodic() {
 
 void Shooter::ShooterTeleopInit() {
 
+
+
 }
 
 void Shooter::ShooterTeleopPeriodic() {
 	switch (firePhase) //meant to fire then reset
 	{
 	case 0: //check if a ball is loaded
-
+cout << "0" << endl;
 		if (shooterLimitSwitch->Get()) {
 
 			firePhase++;
@@ -65,7 +88,7 @@ void Shooter::ShooterTeleopPeriodic() {
 
 		break;
 	case 1: //check if launch button pressed
-
+		cout << "1" << endl;
 		shooterButtonvalue = shooterJoystick->GetRawButton(shooterTrigger);
 		if (shooterButtonvalue) {
 			firePhase++;
@@ -75,11 +98,15 @@ void Shooter::ShooterTeleopPeriodic() {
 
 		break;
 	case 2: //spin up flywheels
-
-		topWheel->Set(.2);
-		lowerWheel->Set(.2);
+		cout << "2" << endl;
+		topWheel->Set(targetSpeed);
+		lowerWheel->Set(targetSpeed);
 		//note == replace "true" in the next line with code that determines if the shooter motors are up to speed.
-		if (true) {
+		actualTopSpeed = topWheel->GetSpeed();
+		actualLowerSpeed = lowerWheel->GetSpeed();
+		 cout << "Top Speed: " << actualTopSpeed << endl;
+		 cout << "Lower Speed: " << actualLowerSpeed << endl;
+		if (within5percent(targetSpeed,actualTopSpeed) and within5percent(targetSpeed,actualLowerSpeed)) {
 			SmartDashboard::PutBoolean("DB/Button 3", true);
 			firePhase++;
 		}
@@ -114,5 +141,16 @@ void Shooter::ShooterTeleopPeriodic() {
 		exsole->Set(DoubleSolenoid::Value::kReverse);
 		firePhase = 0;
 		break;
+	}
+}
+
+bool Shooter::within5percent (float target,float actual)
+{
+	float difference = 1.0 - (actual/target);
+	if (difference < .05 and difference > -.05)
+	{
+		return true;
+	}else{
+		return false;
 	}
 }
