@@ -22,6 +22,9 @@ private:
 	CANTalon *topWheel;
 	CANTalon *lowerWheel;
 	int timer;
+	float targetSpeed;
+	float actualTopSpeed;
+	float actualLowerSpeed;
 
 	Preferences *prefs;
 	int pcmCANID;
@@ -32,6 +35,9 @@ private:
 	int shooterBallDetectSwitch;
 	int driveJoystickNumber;
 	int shooterTrigger;
+
+
+	bool within5percent(float target,float actual);
 
 public:
 	void ShooterInit();

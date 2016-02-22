@@ -23,6 +23,7 @@ void Prefs::PrefsInit() {
 
 	//ENCODEr stuffS
 	prefs->PutDouble("wheelCircumfrence", 23);
+	prefs->PutFloat("shooterTargetSpeed", 10);
 
 	// CANTalon IDs
 	prefs->PutInt("frontRightMotorCANTalonID", 1);
@@ -32,8 +33,8 @@ void Prefs::PrefsInit() {
 	prefs->PutInt("collectConveyorMotorCANTalonID", 2); //not implemented on robot yet
 	prefs->PutInt("collectArmMotorCANTalonID", 2); //not implemented on robot yet
 	prefs->PutInt("liftMotorCANTalonID", 2);  //not implemented on robot yet
-	prefs->PutInt("shooterTopMotorCANTalonID", 2);  //not implemented on robot yet
-	prefs->PutInt("shooterBottomMotorCANTalonID", 2);  //not implemented on robot yet
+	prefs->PutInt("shooterTopMotorCANTalonID", 5);  //not implemented on robot yet
+	prefs->PutInt("shooterBottomMotorCANTalonID", 1);  //not implemented on robot yet
 
 	// Limit Switch IDs
 	prefs->PutInt("liftLimitSwitchLow", 0);
