@@ -79,16 +79,14 @@ void Shooter::ShooterTeleopPeriodic() {
 	switch (firePhase) //meant to fire then reset
 	{
 	case 0: //check if a ball is loaded
-cout << "0" << endl;
+//		cout << "0" << endl;
 		if (shooterLimitSwitch->Get()) {
-
 			firePhase++;
-
 		}
 
 		break;
 	case 1: //check if launch button pressed
-		cout << "1" << endl;
+//		cout << "1" << endl;
 		shooterButtonvalue = shooterJoystick->GetRawButton(shooterTrigger);
 		if (shooterButtonvalue) {
 			firePhase++;
@@ -98,19 +96,17 @@ cout << "0" << endl;
 
 		break;
 	case 2: //spin up flywheels
-		cout << "2" << endl;
+		//		cout << "2" << endl;
+		targetSpeed = prefs->GetFloat ("shooterTargetSpeed", 10.0f); // get new target speed from prefs file in case changed through dashboard
 		topWheel->Set(targetSpeed);
 		lowerWheel->Set(targetSpeed);
-		//note == replace "true" in the next line with code that determines if the shooter motors are up to speed.
 		actualTopSpeed = topWheel->GetSpeed();
 		actualLowerSpeed = lowerWheel->GetSpeed();
-		 cout << "Top Speed: " << actualTopSpeed << endl;
-		 cout << "Lower Speed: " << actualLowerSpeed << endl;
-		if (within5percent(targetSpeed,actualTopSpeed) and within5percent(targetSpeed,actualLowerSpeed)) {
-			SmartDashboard::PutBoolean("DB/Button 3", true);
+		cout << "Top Speed: " << actualTopSpeed << endl;
+		cout << "Lower Speed: " << actualLowerSpeed << endl;
+		if (WithinPercent(targetSpeed,actualTopSpeed) and WithinPercent(targetSpeed,actualLowerSpeed)) {
 			firePhase++;
 		}
-
 		break;
 
 	case 3: //fire piston
@@ -118,18 +114,15 @@ cout << "0" << endl;
 		exsole->Set(DoubleSolenoid::Value::kForward);
 
 		if (!shooterLimitSwitch->Get()) {
-
 			firePhase++;
 		}
 
 		break;
 
-	case 4:
+	case 4: // wait three seconds to make sure ball is gone
 
 		timer = timer + 1;
-
 		if (timer == 150) {
-
 			firePhase++;
 		}
 		break;
@@ -144,10 +137,13 @@ cout << "0" << endl;
 	}
 }
 
-bool Shooter::within5percent (float target,float actual)
+
+// checks whether actual speed is within a certain percentage of target speed
+bool Shooter::WithinPercent (float target,float actual)
 {
 	float difference = 1.0 - (actual/target);
-	if (difference < .05 and difference > -.05)
+	// put percentage in next line
+	if (difference < .01 and difference > -.01)
 	{
 		return true;
 	}else{

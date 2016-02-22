@@ -30,7 +30,7 @@ void Drive::DriveInit() {
 	leftBackMotor->SetInverted(true);
 	leftFrontMotor->SetInverted(true);
 
-	//Set back motors to follow front
+	//Set front motors to follow back
 	leftFrontMotor->SetControlMode(CANSpeedController::kFollower);
 	leftFrontMotor->Set(1);
 
