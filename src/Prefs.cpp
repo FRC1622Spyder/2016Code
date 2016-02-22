@@ -19,6 +19,7 @@ void Prefs::PrefsInit() {
 	prefs->PutInt("armSolenoidExtendPCMPort", 0);
 	prefs->PutInt("armSolenoidRetractPCMPort", 1);
 	prefs->PutInt("shooterSolenoidExtend", 2);
+	prefs->PutInt("shooterSolenoidRetract", 3);
 
 	//ENCODEr stuffS
 	prefs->PutDouble("wheelCircumfrence", 23);

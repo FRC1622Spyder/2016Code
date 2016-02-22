@@ -8,9 +8,9 @@ void Shooter::ShooterInit() {
 	prefs = Preferences::GetInstance();
 	pcmCANID = prefs->GetInt("pcmCANID", 7);
 	shooterSolenoidExtend = prefs->GetInt("shooterSolenoidExtend", 2);
+	shooterSolenoidRetract = prefs->GetInt("shooterSolenoidRetract", 2);
 	shooterTopMotorCANTalonID = prefs->GetInt("shooterTopMotorCANTalonID", 8);
-	shooterBottomMotorCANTalonID = prefs->GetInt("shooterBottomMotorCANTalonID",
-			9);
+	shooterBottomMotorCANTalonID = prefs->GetInt("shooterBottomMotorCANTalonID",9);
 	shooterBallDetectSwitch = prefs->GetInt("shooterBallDetectSwitch", 3);
 	driveJoystickNumber = prefs->GetInt("driveJoystickNumber", 0);
 	shooterTrigger = prefs->GetInt("shooterTrigger", 3);
@@ -18,7 +18,7 @@ void Shooter::ShooterInit() {
 	firePhase = 0;
 	shooterJoystick = new Joystick(driveJoystickNumber);
 	shooterButtonvalue = false;
-	exsole = new Solenoid(pcmCANID, shooterSolenoidExtend);
+	exsole = new DoubleSolenoid(pcmCANID, shooterSolenoidExtend, shooterSolenoidRetract);
 	rightTimer = new Timer();
 	shooterLimitSwitch = new DigitalInput(shooterBallDetectSwitch);
 	topWheel = new CANTalon(shooterTopMotorCANTalonID);
@@ -94,7 +94,7 @@ void Shooter::ShooterTeleopPeriodic() {
 		break;
 	case 4: //fire piston
 
-		exsole->Set(true);
+		exsole->Set(DoubleSolenoid::Value::kForward);
 
 		if (!shooterLimitSwitch->Get()) {
 
@@ -117,7 +117,7 @@ void Shooter::ShooterTeleopPeriodic() {
 
 	case 6: //reset piston , deactivate flywheels
 
-		exsole->Set(false);
+		exsole->Set(DoubleSolenoid::Value::kReverse);
 		firePhase = 0;
 		break;
 	}
