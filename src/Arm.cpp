@@ -22,7 +22,7 @@ void Arm::ArmInit() {
 
 void Arm::ArmDisable() {
 
-	armSolenoid->Set(DoubleSolenoid::Value::kOff);
+	armSolenoid->Set(DoubleSolenoid::Value::kReverse);
 }
 
 void Arm::ArmAutoInit() {
