@@ -3,10 +3,16 @@
 #include <cmath>
 #include <iostream>
 
+<<<<<<< HEAD
 
 using namespace std;
 
 void Auto::AutoInit(std::string autoObstacleSelected) {
+=======
+using namespace std;
+
+void Auto::AutoInit() {
+>>>>>>> refs/remotes/origin/master
 
 	// get preferences
 	prefs = Preferences::GetInstance();
@@ -28,6 +34,7 @@ void Auto::AutoInit(std::string autoObstacleSelected) {
 	rightFrontMotor->SetInverted(true);
 
 	//Set back motors to follow front
+<<<<<<< HEAD
 	rightBackMotor->SetControlMode(CANSpeedController::kFollower);
 	rightBackMotor->Set(1);
 
@@ -58,18 +65,64 @@ void Auto::AutoInit(std::string autoObstacleSelected) {
 
 
 }
+=======
+	leftFrontMotor->SetControlMode(CANSpeedController::kFollower);
+	leftFrontMotor->Set(1);
+
+	rightFrontMotor->SetControlMode(CANSpeedController::kFollower);
+	rightFrontMotor->Set(5);
+
+	//Setup encoders
+	rightBackMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
+	rightBackMotor->ConfigEncoderCodesPerRev(20);
+
+	leftBackMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
+	leftBackMotor->ConfigEncoderCodesPerRev(20);
+
+	//set closed loop gains
+	leftBackMotor->SetPID(2.0f, 0, 200.0f, 0);
+	rightBackMotor->SetPID(2.0f, 0, 200.0f, 0);
+	leftBackMotor->SetCloseLoopRampRate(24);
+	rightBackMotor->SetCloseLoopRampRate(24);
+>>>>>>> refs/remotes/origin/master
 }
 
 void Auto::AutoDisable() {
 
+<<<<<<< HEAD
 //leftBackMotor->Set(0);
 //leftFrontMotor->Set(0);
 //rightBackMotor->Set(0);
 //rightFrontMotor->Set(0);
+=======
+	//leftBackMotor->Set(0);
+	//leftFrontMotor->Set(0);
+	//rightBackMotor->Set(0);
+	//rightFrontMotor->Set(0);
+>>>>>>> refs/remotes/origin/master
 
 }
 
 void Auto::AutoAutoInit() {
+<<<<<<< HEAD
+=======
+
+	//Prepping auto state
+	autoLoopCounter = 0;
+	leftBackMotor->SetPosition(0);
+	rightBackMotor->SetPosition(0);
+
+
+	//0 the sensor and position
+	leftBackMotor->SetPosition(0);
+	rightBackMotor->SetPosition(0);
+	targetPosition = 0.0;
+
+	leftBackMotor->SetControlMode(CANTalon::ControlMode::kPosition);
+	rightBackMotor->SetControlMode(CANTalon::ControlMode::kPosition);
+
+}
+>>>>>>> refs/remotes/origin/master
 
 //Prepping auto state
 autoLoopCounter = 0;
@@ -81,6 +134,7 @@ leftFrontMotor->SetPosition(0);
 rightFrontMotor->SetPosition(0);
 targetPosition = 0.0;
 
+<<<<<<< HEAD
 leftFrontMotor->SetControlMode(CANTalon::ControlMode::kPosition);
 rightFrontMotor->SetControlMode(CANTalon::ControlMode::kPosition);
 
@@ -147,6 +201,27 @@ void Auto::AutoAutoPeriodic() {
 				std::cout << "move right then straight forward" << std::endl;
 				break;
 			}*/
+=======
+	cout << "Left: " << leftBackMotor->GetPosition() << endl;
+	cout << "Right: " << rightBackMotor->GetPosition() << endl;
+
+	cout << "Left Speed: " << leftBackMotor->GetSpeed() << endl;
+	cout << "Right Speed: " << rightBackMotor->GetSpeed() << endl;
+
+	double inches = 36;
+	double leftWheelPosition;
+	double rightWheelPosition;
+
+	targetPosition = (inches / wheelCircumfrence) * driveRatio;
+	leftBackMotor->Set(targetPosition);
+    rightBackMotor->Set(targetPosition*-1);
+    leftWheelPosition=leftBackMotor->GetPosition();
+    rightWheelPosition=-1*rightBackMotor->GetPosition();
+
+
+	cout << "Left Position: " << leftWheelPosition << endl;
+	cout << "Right Position: " << rightWheelPosition << endl;
+>>>>>>> refs/remotes/origin/master
 }
 
 void Auto::AutoTeleopInit() {
@@ -159,13 +234,20 @@ void Auto::AutoTeleopPeriodic() {
 
 void Auto::allSpeedSet(double s) {
 
+<<<<<<< HEAD
 leftFrontMotor->Set(s);
 
 rightFrontMotor->Set(s);
+=======
+	leftBackMotor->Set(s);
+
+	rightBackMotor->Set(s);
+>>>>>>> refs/remotes/origin/master
 
 }
 
 void Auto::leftSpeedSet(double s) {
+<<<<<<< HEAD
 //leftBackMotor->Set(s);
 leftFrontMotor->Set(s);
 }
@@ -173,6 +255,15 @@ leftFrontMotor->Set(s);
 void Auto::rightSpeedSet(double s) {
 //rightBackMotor->Set(s);
 rightFrontMotor->Set(s);
+=======
+	//leftBackMotor->Set(s);
+	leftBackMotor->Set(s);
+}
+
+void Auto::rightSpeedSet(double s) {
+	//rightBackMotor->Set(s);
+	rightBackMotor->Set(s);
+>>>>>>> refs/remotes/origin/master
 
 }
 int selectToInt(std::string obstacleString) { //function that changes strings to integers

@@ -30,6 +30,11 @@ private:
 	int rightAxis;
 
 
+	double wheelCircumfrence;
+	double driveRatio;
+
+
+
 	void allSpeedSet(double s);
 	void leftSpeedSet(double s);
 	void rightSpeedSet(double s);

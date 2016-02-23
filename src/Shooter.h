@@ -14,7 +14,7 @@ private:
 	Joystick *shooterJoystick;
 	bool shooterButtonvalue;
 	int ceeout;
-	Solenoid *exsole;
+	DoubleSolenoid *exsole;
 	Timer *rightTimer;
 	DigitalInput *shooterLimitSwitch;
 	DigitalInput *shooterLimitSwitch1;
@@ -22,15 +22,22 @@ private:
 	CANTalon *topWheel;
 	CANTalon *lowerWheel;
 	int timer;
+	float targetSpeed;
+	float actualTopSpeed;
+	float actualLowerSpeed;
 
 	Preferences *prefs;
 	int pcmCANID;
 	int shooterSolenoidExtend;
+	int shooterSolenoidRetract;
 	int shooterTopMotorCANTalonID;
 	int shooterBottomMotorCANTalonID;
 	int shooterBallDetectSwitch;
 	int driveJoystickNumber;
 	int shooterTrigger;
+
+
+	bool WithinPercent(float target,float actual);
 
 public:
 	void ShooterInit();

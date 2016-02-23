@@ -71,24 +71,27 @@ public:
 
 	}
 
-	/**
-	 * This autonomous (along with the chooser code above) shows how to select between different autonomous modes
-	 * using the dashboard. The sendable chooser code works with the Java SmartDashboard. If you prefer the LabVIEW
-	 * Dashboard, remove all of the chooser code and uncomment the GetString line to get the auto name from the text box
-	 * below the Gyro
-	 *
-	 * You can add additional auto modes by adding additional comparisons to the if-else structure below with additional strings.
-	 * If using the SendableChooser make sure to add them to the chooser code above as well.
-	 */
 	void AutonomousInit() {
 
+<<<<<<< HEAD
 		autoObstacleSelected = *((std::string*) chooserObstacle->GetSelected());
+=======
+		autoSelected = *((std::string*) chooser->GetSelected());
+		std::cout << "Auto selected: " << autoSelected << std::endl;
+>>>>>>> refs/remotes/origin/master
 
 		// autosselected holds the obstacle option selected as a string
 
 		autoSystem.AutoAutoInit(autoObstacleSelected);
 		camera.CameraAutoInit(); // this subsystem needs to be called last
 
+<<<<<<< HEAD
+=======
+			//Default Auto goes here
+			autoSystem.AutoAutoInit();
+			//camera.CameraAutoInit(); // this subsystem needs to be called last
+		}
+>>>>>>> refs/remotes/origin/master
 	}
 
 	void AutonomousPeriodic() {
@@ -96,14 +99,19 @@ public:
 			//Custom Auto goes here -- not using this
 		} else {
 			//Default Auto goes here
+<<<<<<< HEAD
 			autoSystem.AutoAutoPeriodic(obstacle, position);
 
 			camera.CameraAutoPeriodic(); // this subsystem needs to be called last
+=======
+			autoSystem.AutoAutoPeriodic();
+			//camera.CameraAutoPeriodic(); // this subsystem needs to be called last
+>>>>>>> refs/remotes/origin/master
 		}
 	}
 
 	void TeleopInit() {
-		camera.CameraTeleopInit(); // this subsystem needs to be called last
+		//camera.CameraTeleopInit(); // this subsystem needs to be called last
 	}
 
 	void TeleopPeriodic() {
@@ -112,7 +120,7 @@ public:
 		drive.DriveTeleopPeriodic();
 		shooter.ShooterTeleopPeriodic();
 		collect.CollectTeleopPeriodic();
-		camera.CameraTeleopPeriodic(); // this subsystem needs to be called last
+		//camera.CameraTeleopPeriodic(); // this subsystem needs to be called last
 	}
 
 	void DisabledPeriodic() {
@@ -122,7 +130,7 @@ public:
 		shooter.ShooterDisable();
 		collect.CollectDisable();
 		autoSystem.AutoDisable();
-		camera.CameraDisable(); // this subsystem needs to be called last
+		//camera.CameraDisable(); // this subsystem needs to be called last
 	}
 
 };
