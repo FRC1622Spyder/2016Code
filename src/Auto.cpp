@@ -3,16 +3,10 @@
 #include <cmath>
 #include <iostream>
 
-<<<<<<< HEAD
-
 using namespace std;
 
 void Auto::AutoInit(std::string autoObstacleSelected) {
-=======
-using namespace std;
 
-void Auto::AutoInit() {
->>>>>>> refs/remotes/origin/master
 
 	// get preferences
 	prefs = Preferences::GetInstance();
@@ -34,7 +28,7 @@ void Auto::AutoInit() {
 	rightFrontMotor->SetInverted(true);
 
 	//Set back motors to follow front
-<<<<<<< HEAD
+
 	rightBackMotor->SetControlMode(CANSpeedController::kFollower);
 	rightBackMotor->Set(1);
 
@@ -55,17 +49,6 @@ void Auto::AutoInit() {
 	rightFrontMotor->SetCloseLoopRampRate(24);
 
 	//Auto selector code
-
-}
-
-
-
-
-}
-
-
-}
-=======
 	leftFrontMotor->SetControlMode(CANSpeedController::kFollower);
 	leftFrontMotor->Set(1);
 
@@ -84,28 +67,49 @@ void Auto::AutoInit() {
 	rightBackMotor->SetPID(2.0f, 0, 200.0f, 0);
 	leftBackMotor->SetCloseLoopRampRate(24);
 	rightBackMotor->SetCloseLoopRampRate(24);
->>>>>>> refs/remotes/origin/master
 }
 
 void Auto::AutoDisable() {
 
-<<<<<<< HEAD
-//leftBackMotor->Set(0);
-//leftFrontMotor->Set(0);
-//rightBackMotor->Set(0);
-//rightFrontMotor->Set(0);
-=======
 	//leftBackMotor->Set(0);
 	//leftFrontMotor->Set(0);
 	//rightBackMotor->Set(0);
 	//rightFrontMotor->Set(0);
->>>>>>> refs/remotes/origin/master
-
 }
 
+
+int selectToInt(std::string obstacleString) { //function that changes strings to integers
+	if (obstacleString == "Default") {
+		return 0;
+	}
+	if (obstacleString == "Moat") {
+		return 1;
+	}
+	if (obstacleString == "Rough Terrain") {
+		return 2;
+	}
+	if (obstacleString == "Ramparts") {
+		return 3;
+	}
+	if (obstacleString == "Seesaw") {
+		return 4;
+	}
+	if (obstacleString == "Drawbridge") {
+		return 5;
+	}
+	if (obstacleString == "Portcullis") {
+		return 6;
+	}
+	if (obstacleString == "Sally Port") {
+		return 7;
+	}
+	if (obstacleString == "Rock Wall") {
+		return 8;
+	}
+	else return -1;
+	}
+
 void Auto::AutoAutoInit() {
-<<<<<<< HEAD
-=======
 
 	//Prepping auto state
 	autoLoopCounter = 0;
@@ -121,33 +125,19 @@ void Auto::AutoAutoInit() {
 	leftBackMotor->SetControlMode(CANTalon::ControlMode::kPosition);
 	rightBackMotor->SetControlMode(CANTalon::ControlMode::kPosition);
 
-}
->>>>>>> refs/remotes/origin/master
 
-//Prepping auto state
-autoLoopCounter = 0;
-leftFrontMotor->SetPosition(0);
-rightFrontMotor->SetPosition(0);
 
-//0 the sensor and position
-leftFrontMotor->SetPosition(0);
-rightFrontMotor->SetPosition(0);
-targetPosition = 0.0;
-
-<<<<<<< HEAD
-leftFrontMotor->SetControlMode(CANTalon::ControlMode::kPosition);
-rightFrontMotor->SetControlMode(CANTalon::ControlMode::kPosition);
 
 // turn obstacle string into integers
-obstacle = selectToInt(autoObstacleSelected);
+//obstacle = selectToInt(Robot::autoObstacleSelected);
 //position = selectToInt(autoPositionSelected);
 }
 
-void Auto::AutoAutoPeriodic() {
+void Auto::AutoAutoPeriodic(int obstacle, int position) {
 
 // Autonomous code goes here
 
-	int findObstacle(obstacle) { //uses integers to choose what actions to take for the obstacle
+/*	int findObstacle(obstacle) { //uses integers to choose what actions to take for the obstacle
 		switch (obstacle) {
 		case 0:
 			std::cout << "Default" << std::endl;
@@ -201,7 +191,6 @@ void Auto::AutoAutoPeriodic() {
 				std::cout << "move right then straight forward" << std::endl;
 				break;
 			}*/
-=======
 	cout << "Left: " << leftBackMotor->GetPosition() << endl;
 	cout << "Right: " << rightBackMotor->GetPosition() << endl;
 
@@ -221,7 +210,6 @@ void Auto::AutoAutoPeriodic() {
 
 	cout << "Left Position: " << leftWheelPosition << endl;
 	cout << "Right Position: " << rightWheelPosition << endl;
->>>>>>> refs/remotes/origin/master
 }
 
 void Auto::AutoTeleopInit() {
@@ -233,21 +221,11 @@ void Auto::AutoTeleopPeriodic() {
 }
 
 void Auto::allSpeedSet(double s) {
-
-<<<<<<< HEAD
 leftFrontMotor->Set(s);
-
 rightFrontMotor->Set(s);
-=======
-	leftBackMotor->Set(s);
-
-	rightBackMotor->Set(s);
->>>>>>> refs/remotes/origin/master
-
 }
 
 void Auto::leftSpeedSet(double s) {
-<<<<<<< HEAD
 //leftBackMotor->Set(s);
 leftFrontMotor->Set(s);
 }
@@ -255,43 +233,5 @@ leftFrontMotor->Set(s);
 void Auto::rightSpeedSet(double s) {
 //rightBackMotor->Set(s);
 rightFrontMotor->Set(s);
-=======
-	//leftBackMotor->Set(s);
-	leftBackMotor->Set(s);
 }
 
-void Auto::rightSpeedSet(double s) {
-	//rightBackMotor->Set(s);
-	rightBackMotor->Set(s);
->>>>>>> refs/remotes/origin/master
-
-}
-int selectToInt(std::string obstacleString) { //function that changes strings to integers
-if (obstacleString = "Default") {
-	return 0;
-}
-if (obstacleString = "Moat") {
-	return 1;
-}
-if (obstacleString = "Rough Terrain") {
-	return 2;
-}
-if (obstacleString = "Ramparts") {
-	return 3;
-}
-if (obstacleString = "Seesaw") {
-	return 4;
-}
-if (obstacleString = "Drawbridge") {
-	return 5;
-}
-if (obstacleString = "Portcullis") {
-	return 6;
-}
-if (obstacleString = "Sally Port") {
-	return 7;
-}
-if (obstacleString = "Rock Wall") {
-	return 8;
-}
-}

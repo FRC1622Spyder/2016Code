@@ -26,47 +26,47 @@ void Prefs::PrefsInit() {
 	prefs->PutFloat("shooterTargetSpeed", 10);
 
 	// CANTalon IDs
-	prefs->PutInt("frontRightMotorCANTalonID", 4);
-	prefs->PutInt("frontLeftMotorCANTalonID", 3);
-	prefs->PutInt("backRightMotorCANTalonID", 5);
-	prefs->PutInt("backLeftMotorCANTalonID", 1);
-	prefs->PutInt("collectConveyorMotorCANTalonID", 8); //not implemented on robot yet
-	prefs->PutInt("collectArmMotorCANTalonID", 8); //not implemented on robot yet
-	prefs->PutInt("liftMotorCANTalonID", 8);  //not implemented on robot yet
-	prefs->PutInt("shooterTopMotorCANTalonID", 2);  //not implemented on robot yet
+	prefs->PutInt("frontRightMotorCANTalonID", 3);
+	prefs->PutInt("frontLeftMotorCANTalonID", 9);
+	prefs->PutInt("backRightMotorCANTalonID", 2);
+	prefs->PutInt("backLeftMotorCANTalonID", 8);
+	prefs->PutInt("collectConveyorMotorCANTalonID", 4); //not implemented on robot yet
+	prefs->PutInt("collectArmMotorCANTalonID", 5); //not implemented on robot yet
+	prefs->PutInt("liftMotorCANTalonID", 1);  //not implemented on robot yet
+	prefs->PutInt("shooterTopMotorCANTalonID", 7);  //not implemented on robot yet
 	prefs->PutInt("shooterBottomMotorCANTalonID", 6);  //not implemented on robot yet
 
 	// Limit Switch IDs
-	prefs->PutInt("liftLimitSwitchLow", 0);
-	prefs->PutInt("liftLimitSwitchMed", 1);
-	prefs->PutInt("liftLimitSwitchHigh", 2);
-	prefs->PutInt("shooterBallDetectSwitch", 3);
-	prefs->PutInt("collectBallDetectSwitch1", 4);
-	prefs->PutInt("collectBallDetectSwitch2", 5);
-	prefs->PutInt("collectConveyerUpSwitch", 6);
-	prefs->PutInt("collectConveyerDownSwitch", 7);
+	prefs->PutInt("liftLimitSwitchLow", 0); //yet to be mapped
+	prefs->PutInt("liftLimitSwitchMed", 1); //yet to be mapped
+	prefs->PutInt("liftLimitSwitchHigh", 2); //yet to be mapped
+	prefs->PutInt("shooterBallDetectSwitch", 3);//yet to be mapped
+	prefs->PutInt("collectBallDetectSwitch1", 4);//yet to be mapped
+	prefs->PutInt("collectBallDetectSwitch2", 5);//yet to be mapped
+	prefs->PutInt("collectConveyerUpSwitch", 6);//yet to be mapped
+	prefs->PutInt("collectConveyerDownSwitch", 7);//yet to be mapped
 
 	// driveJoyStick IDs
-	prefs->PutInt("driveJoystickNumber", 0);
-	prefs->PutInt("leftAxis", 1);
-	prefs->PutInt("rightAxis", 3);
-	prefs->PutInt("armTrigger", 5);
-	prefs->PutInt("liftUpButton", 4);
-	prefs->PutInt("liftDownButton", 2);
-	prefs->PutInt("shooterTrigger", 8);
-	prefs->PutInt("halfSpeedButton", 6);
+	prefs->PutInt("driveJoystickNumber", 0);//yet to be mapped
+	prefs->PutInt("leftAxis", 1);//yet to be mapped
+	prefs->PutInt("rightAxis", 3);//yet to be mapped
+	prefs->PutInt("armTrigger", 5);//yet to be mapped
+	prefs->PutInt("liftUpButton", 4);//yet to be mapped
+	prefs->PutInt("liftDownButton", 2);//yet to be mapped
+	prefs->PutInt("shooterTrigger", 8);//yet to be mapped
+	prefs->PutInt("halfSpeedButton", 6);//yet to be mapped
 
 	// auxJoyStick IDs
-	prefs->PutInt("auxJoystickNumber", 1);
-	prefs->PutInt("collectConveyerInButton", 1);
-	prefs->PutInt("collectConveyerOutButton", 3);
-	prefs->PutInt("collectConveyerUpButton", 4);
-	prefs->PutInt("collectConveyerDownButton", 2);
-	prefs->PutInt("collectFinalLoadButton", 8);
-	prefs->PutInt("cameraSendButton", 5);
+	prefs->PutInt("auxJoystickNumber", 1);//yet to be mapped
+	prefs->PutInt("collectConveyerInButton", 1);//yet to be mapped
+	prefs->PutInt("collectConveyerOutButton", 3);//yet to be mapped
+	prefs->PutInt("collectConveyerUpButton", 4);//yet to be mapped
+	prefs->PutInt("collectConveyerDownButton", 2);//yet to be mapped
+	prefs->PutInt("collectFinalLoadButton", 8);//yet to be mapped
+	prefs->PutInt("cameraSendButton", 5);//yet to be mapped
 
 	// Camera Prefs
-	prefs->PutInt("Brightness", 40);
+	prefs->PutInt("Brightness", 40);//yet to be mapped
 
 
 }

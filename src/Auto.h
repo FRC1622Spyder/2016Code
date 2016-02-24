@@ -35,9 +35,9 @@ private:
 	int obstacle;
 	int position;
 public:
-	void AutoInit();
+	void AutoInit(std::string autoObstacleSelected);
 	void AutoAutoInit();
-	void AutoAutoPeriodic();
+	void AutoAutoPeriodic(int obstacle, int position);
 	void AutoTeleopInit();
 	void AutoTeleopPeriodic();
 	void AutoDisable();

@@ -26,7 +26,7 @@ public:
 	const std::string autoObstacleSallyPort = "Sally Port";
 	const std::string autoObstacleRockWall = "Rock Wall";
 
-	std::string autoSelected;
+	std::string autoObstacleSelected;
 
 	// here we create the variables that represent each subsystem
 	Lift lift;
@@ -66,48 +66,24 @@ public:
 		drive.DriveInit();
 		shooter.ShooterInit();
 		collect.CollectInit();
-		autoSystem.AutoInit();
+		autoSystem.AutoInit(autoObstacleSelected);
 		camera.CameraInit(); // this subsystem needs to be called last
 
 	}
 
 	void AutonomousInit() {
 
-<<<<<<< HEAD
 		autoObstacleSelected = *((std::string*) chooserObstacle->GetSelected());
-=======
-		autoSelected = *((std::string*) chooser->GetSelected());
-		std::cout << "Auto selected: " << autoSelected << std::endl;
->>>>>>> refs/remotes/origin/master
 
 		// autosselected holds the obstacle option selected as a string
 
-		autoSystem.AutoAutoInit(autoObstacleSelected);
+		autoSystem.AutoInit(autoObstacleSelected);
 		camera.CameraAutoInit(); // this subsystem needs to be called last
-
-<<<<<<< HEAD
-=======
-			//Default Auto goes here
-			autoSystem.AutoAutoInit();
-			//camera.CameraAutoInit(); // this subsystem needs to be called last
-		}
->>>>>>> refs/remotes/origin/master
 	}
 
 	void AutonomousPeriodic() {
-		if (autoSelected == autoNameCustom) {
-			//Custom Auto goes here -- not using this
-		} else {
-			//Default Auto goes here
-<<<<<<< HEAD
-			autoSystem.AutoAutoPeriodic(obstacle, position);
-
-			camera.CameraAutoPeriodic(); // this subsystem needs to be called last
-=======
-			autoSystem.AutoAutoPeriodic();
-			//camera.CameraAutoPeriodic(); // this subsystem needs to be called last
->>>>>>> refs/remotes/origin/master
-		}
+		autoSystem.AutoAutoPeriodic(Auto::obstacle, Auto::position);
+		camera.CameraAutoPeriodic(); // this subsystem needs to be called last
 	}
 
 	void TeleopInit() {
