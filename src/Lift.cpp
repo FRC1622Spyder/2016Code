@@ -7,13 +7,13 @@ using namespace std;
 
 void Lift::LiftInit() {
 	prefs = Preferences::GetInstance();
-	liftMotorCANTalonID = prefs->GetInt("liftMotorCANTalonID", 7);
-	liftLimitSwitchLow = prefs->GetInt("liftLimitSwitchLow", 0);
-	liftLimitSwitchMed = prefs->GetInt("liftLimitSwitchMed", 1);
-	liftLimitSwitchHigh = prefs->GetInt("liftLimitSwitchHigh", 2);
-	liftUpButton = prefs->GetInt("liftUpButton", 4);
-	liftDownButton = prefs->GetInt("liftDownButton", 2);
-	driveJoystickNumber = prefs->GetInt("joystickNumber", 0);
+	liftMotorCANTalonID = prefs->GetInt("liftMotorCANTalonID");
+	liftLimitSwitchLow = prefs->GetInt("liftLimitSwitchLow");
+	liftLimitSwitchMed = prefs->GetInt("liftLimitSwitchMed");
+	liftLimitSwitchHigh = prefs->GetInt("liftLimitSwitchHigh");
+	liftUpButton = prefs->GetInt("liftUpButton");
+	liftDownButton = prefs->GetInt("liftDownButton");
+	driveJoystickNumber = prefs->GetInt("joystickNumber");
 
 	stick = new Joystick(driveJoystickNumber);
 	liftLimitSwitch1 = new DigitalInput(liftLimitSwitchLow);
@@ -49,12 +49,12 @@ void Lift::LiftTeleopPeriodic() {
 
 	// If up button is pressed and up limit not reached, go up
 	if (stick->GetRawButton(liftUpButton) && !(stick->GetRawButton(liftLimitSwitchHigh))) {
-		liftMotor->Set(.5);
+		liftMotor->Set(1);
 	}
 
 	// If down button is pressed and down limit not reached, go down
 	else if (stick->GetRawButton(liftDownButton) && !(stick->GetRawButton(liftLimitSwitchLow))) {
-		liftMotor->Set(-.5);
+		liftMotor->Set(-1);
 	}
 
 	else {

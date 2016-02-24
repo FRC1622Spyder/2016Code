@@ -32,9 +32,9 @@ void Prefs::PrefsInit() {
 	prefs->PutInt("backLeftMotorCANTalonID", 8);
 	prefs->PutInt("collectConveyorMotorCANTalonID", 4); //not implemented on robot yet
 	prefs->PutInt("collectArmMotorCANTalonID", 5); //not implemented on robot yet
-	prefs->PutInt("liftMotorCANTalonID", 1);  //not implemented on robot yet
-	prefs->PutInt("shooterTopMotorCANTalonID", 7);  //not implemented on robot yet
-	prefs->PutInt("shooterBottomMotorCANTalonID", 6);  //not implemented on robot yet
+	prefs->PutInt("liftMotorCANTalonID", 1);
+	prefs->PutInt("shooterTopMotorCANTalonID", 7);
+	prefs->PutInt("shooterBottomMotorCANTalonID", 6);
 
 	// Limit Switch IDs
 	prefs->PutInt("liftLimitSwitchLow", 0);

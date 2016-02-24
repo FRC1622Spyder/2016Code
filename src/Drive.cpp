@@ -9,14 +9,14 @@ void Drive::DriveInit() {
 
 	// get preferences
 	prefs = Preferences::GetInstance();
-	frontRightMotorCANTalonID = prefs->GetInt("frontRightMotorCANTalonID", 4);
-	backRightMotorCANTalonID = prefs->GetInt("backRightMotorCANTalonID", 5);
-	frontLeftMotorCANTalonID = prefs->GetInt("frontLeftMotorCANTalonID", 3);
-	backLeftMotorCANTalonID = prefs->GetInt("backLeftMotorCANTalonID", 1);
-	driveJoystickNumber = prefs->GetInt("joystickNumber", 0);
-	leftAxis = prefs->GetInt("leftAxis", 1);
-	rightAxis = prefs->GetInt("rightAxis", 3);
-	wheelCircumfrence = prefs->GetDouble("wheelCircumfrence", 23);
+	frontRightMotorCANTalonID = prefs->GetInt("frontRightMotorCANTalonID");
+	backRightMotorCANTalonID = prefs->GetInt("backRightMotorCANTalonID");
+	frontLeftMotorCANTalonID = prefs->GetInt("frontLeftMotorCANTalonID");
+	backLeftMotorCANTalonID = prefs->GetInt("backLeftMotorCANTalonID");
+	driveJoystickNumber = prefs->GetInt("joystickNumber");
+	leftAxis = prefs->GetInt("leftAxis");
+	rightAxis = prefs->GetInt("rightAxis");
+	wheelCircumfrence = prefs->GetDouble("wheelCircumfrence");
 	driveRatio = 8.45;
 
 	// assign motors and joystick
@@ -77,8 +77,8 @@ void Drive::DriveTeleopPeriodic() {
 	leftVal = joy->GetRawAxis(leftAxis);
 	rightVal = joy->GetRawAxis(rightAxis);
 
-	cout << "Drive Left: " << leftVal << endl;
-	cout << "Drive Right: " << rightVal << endl;
+//	cout << "Drive Left: " << leftVal << endl;
+//	cout << "Drive Right: " << rightVal << endl;
 
 	if (halfButtonValue) {
 		leftVal = leftVal / 2;
