@@ -8,7 +8,6 @@
 #include "Auto.h"
 #include "Collect.h"
 
-
 using namespace std;
 
 class Robot: public IterativeRobot {
@@ -16,10 +15,18 @@ class Robot: public IterativeRobot {
 public:
 
 	// used for selecting which autonomous code is called.  unsused currently.
-	SendableChooser *chooser;
-	const std::string autoNameDefault = "Default";
-	const std::string autoNameCustom = "My Auto";
-	std::string autoSelected;
+	SendableChooser *chooserObstacle;
+	SendableChooser *chooserPosition;
+	const std::string autoObstacleMoat = "Moat";
+	const std::string autoObstacleRoughTerrain = "Rough Terrain";
+	const std::string autoObstacleRamparts = "Ramparts";
+	const std::string autoObstacleSeesaw = "Seesaw";
+	const std::string autoObstacleDrawbridge = "Drawbridge";
+	const std::string autoObstaclePortcullis = "Portcullis";
+	const std::string autoObstacleSallyPort = "Sally Port";
+	const std::string autoObstacleRockWall = "Rock Wall";
+
+	std::string autoObstacleSelected;
 
 	// here we create the variables that represent each subsystem
 	Lift lift;
@@ -34,10 +41,23 @@ public:
 	void RobotInit() {
 
 		// selecting autonomous code -- not used
-		chooser = new SendableChooser();
-		chooser->AddDefault(autoNameDefault, (void*) &autoNameDefault);
-		chooser->AddObject(autoNameCustom, (void*) &autoNameCustom);
-		SmartDashboard::PutData("Auto Modes", chooser);
+		chooserObstacle = new SendableChooser();
+		chooserObstacle->AddObject(autoObstacleMoat, (void*) &autoObstacleMoat);
+		chooserObstacle->AddObject(autoObstacleRoughTerrain,
+				(void*) &autoObstacleRoughTerrain);
+		chooserObstacle->AddObject(autoObstacleRamparts,
+				(void*) &autoObstacleRamparts);
+		chooserObstacle->AddObject(autoObstacleSeesaw,
+				(void*) &autoObstacleSeesaw);
+		chooserObstacle->AddObject(autoObstacleDrawbridge,
+				(void*) &autoObstacleDrawbridge);
+		chooserObstacle->AddObject(autoObstaclePortcullis,
+				(void*) &autoObstaclePortcullis);
+		chooserObstacle->AddObject(autoObstacleSallyPort,
+				(void*) &autoObstacleSallyPort);
+		chooserObstacle->AddObject(autoObstacleRockWall,
+				(void*) &autoObstacleRockWall);
+		SmartDashboard::PutData("Auto Obstacles", chooserObstacle);
 
 		// call init on each subsystem
 		prefSystem.PrefsInit(); // has to be first
@@ -46,34 +66,24 @@ public:
 		drive.DriveInit();
 		shooter.ShooterInit();
 		collect.CollectInit();
-		autoSystem.AutoInit();
+		autoSystem.AutoInit(autoObstacleSelected);
 		camera.CameraInit(); // this subsystem needs to be called last
 
 	}
 
 	void AutonomousInit() {
 
-		autoSelected = *((std::string*) chooser->GetSelected());
-		std::cout << "Auto selected: " << autoSelected << std::endl;
+		autoObstacleSelected = *((std::string*) chooserObstacle->GetSelected());
 
-		if (autoSelected == autoNameCustom) {
-			//Custom Auto goes here - not using this
-		} else {
+		// autosselected holds the obstacle option selected as a string
 
-			//Default Auto goes here
-			autoSystem.AutoAutoInit();
-			//camera.CameraAutoInit(); // this subsystem needs to be called last
-		}
+		autoSystem.AutoInit(autoObstacleSelected);
+		camera.CameraAutoInit(); // this subsystem needs to be called last
 	}
 
 	void AutonomousPeriodic() {
-		if (autoSelected == autoNameCustom) {
-			//Custom Auto goes here -- not using this
-		} else {
-			//Default Auto goes here
-			autoSystem.AutoAutoPeriodic();
-			//camera.CameraAutoPeriodic(); // this subsystem needs to be called last
-		}
+		autoSystem.AutoAutoPeriodic(Auto::obstacle, Auto::position);
+		camera.CameraAutoPeriodic(); // this subsystem needs to be called last
 	}
 
 	void TeleopInit() {
