@@ -32,10 +32,10 @@ void Drive::DriveInit() {
 
 	//Set front motors to follow back
 	leftFrontMotor->SetControlMode(CANSpeedController::kFollower);
-	leftFrontMotor->Set(1);
+	leftFrontMotor->Set(backLeftMotorCANTalonID);
 
 	rightFrontMotor->SetControlMode(CANSpeedController::kFollower);
-	rightFrontMotor->Set(5);
+	rightFrontMotor->Set(backRightMotorCANTalonID);
 
 	//Setup encoders
 	leftBackMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
