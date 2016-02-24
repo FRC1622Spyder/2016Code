@@ -1,6 +1,7 @@
 #include "WPILib.h"
 #include "Lift.h"
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -44,6 +45,8 @@ void Lift::LiftTeleopInit() {
 
 void Lift::LiftTeleopPeriodic() {
 
+
+
 	// If up button is pressed and up limit not reached, go up
 	if (stick->GetRawButton(liftUpButton) && !(stick->GetRawButton(liftLimitSwitchHigh))) {
 		liftMotor->Set(.5);
@@ -57,6 +60,7 @@ void Lift::LiftTeleopPeriodic() {
 	else {
 		liftMotor->Set(0);
 	}
+
 
 
 	/*

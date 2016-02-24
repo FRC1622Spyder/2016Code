@@ -28,7 +28,7 @@ public:
 	Shooter shooter;
 	Camera camera;
 	Prefs prefSystem;
-	Collect collect;
+	//Collect collect;
 	Auto autoSystem;
 
 	void RobotInit() {
@@ -45,7 +45,7 @@ public:
 		arm.ArmInit();
 		drive.DriveInit();
 		shooter.ShooterInit();
-		collect.CollectInit();
+		//collect.CollectInit();
 		autoSystem.AutoInit();
 		camera.CameraInit(); // this subsystem needs to be called last
 
@@ -85,7 +85,7 @@ public:
 		arm.ArmTeleopPeriodic();
 		drive.DriveTeleopPeriodic();
 		shooter.ShooterTeleopPeriodic();
-		collect.CollectTeleopPeriodic();
+		//collect.CollectTeleopPeriodic();
 		//camera.CameraTeleopPeriodic(); // this subsystem needs to be called last
 	}
 
@@ -94,7 +94,7 @@ public:
 		arm.ArmDisable();
 		drive.DriveDisable();
 		shooter.ShooterDisable();
-		collect.CollectDisable();
+		//collect.CollectDisable();
 		autoSystem.AutoDisable();
 		//camera.CameraDisable(); // this subsystem needs to be called last
 	}
