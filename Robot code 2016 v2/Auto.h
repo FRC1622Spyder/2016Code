@@ -23,6 +23,10 @@ private:
 	int frontLeftMotorCANTalonID;
 	int backRightMotorCANTalonID;
 	int backLeftMotorCANTalonID;
+	
+	double wheelCircumfrence;
+	double driveRatio;
+    	double targetPosition;
 
 	SendableChooser *turnChooser;
 	const std::string autoStraight;
@@ -34,6 +38,17 @@ private:
 	const std::string autoRotateLeft;
 	const std::string autoRotateRight;
 	std::string rotateSelected;
+	SendableChooser *obstacleChooser;
+	const std::string Default;
+	const std::string Moat;
+	const std::string RoughTerrain;
+	const std::string Ramparts;
+	const std::string Seesaw;
+	const std::string Drawbridge;
+	const std::string Portcullis;
+	const std::string SallyPort;
+	const std::string RockWall;
+	std::string obstacleSelected;
 
 	int state;
 	int leftEncoderPosition;
