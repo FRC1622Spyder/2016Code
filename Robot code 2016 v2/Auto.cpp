@@ -7,10 +7,12 @@ void Auto::AutoInit() {
 
 	// get preferences
 	prefs = Preferences::GetInstance();
-	frontRightMotorCANTalonID = prefs->GetInt("frontRightMotorCANTalonID", 7);
-	backRightMotorCANTalonID = prefs->GetInt("backRightMotorCANTalonID", 7);
-	frontLeftMotorCANTalonID = prefs->GetInt("frontLeftMotorCANTalonID", 7);
-	backLeftMotorCANTalonID = prefs->GetInt("backLeftMotorCANTalonID", 7);
+	frontRightMotorCANTalonID = prefs->GetInt("frontRightMotorCANTalonID", 1);
+	backRightMotorCANTalonID = prefs->GetInt("backRightMotorCANTalonID", 3);
+	frontLeftMotorCANTalonID = prefs->GetInt("frontLeftMotorCANTalonID", 5);
+	backLeftMotorCANTalonID = prefs->GetInt("backLeftMotorCANTalonID", 4);
+	wheelCircumfrence = prefs->GetDouble("wheelCircumfrence", 23);
+	driveRatio = 8.45;
 
 	// assign motors and drive joystick
 	leftBackMotor = new CANTalon(backLeftMotorCANTalonID);
@@ -19,8 +21,28 @@ void Auto::AutoInit() {
 	rightFrontMotor = new CANTalon(frontRightMotorCANTalonID);
 
 	// setup motors
-	leftBackMotor->SetInverted(true);
-	leftFrontMotor->SetInverted(true);
+	rightBackMotor->SetInverted(true);
+	rightFrontMotor->SetInverted(true);
+
+	//Set back motors to follow front
+	leftFrontMotor->SetControlMode(CANSpeedController::kFollower);
+	leftFrontMotor->Set(1);
+
+	rightFrontMotor->SetControlMode(CANSpeedController::kFollower);
+	rightFrontMotor->Set(5);
+
+	//Setup encoders
+	rightBackMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
+	rightBackMotor->ConfigEncoderCodesPerRev(20);
+
+	leftBackMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
+	leftBackMotor->ConfigEncoderCodesPerRev(20);
+
+	//set closed loop gains
+	leftBackMotor->SetPID(2.0f, 0, 200.0f, 0);
+	rightBackMotor->SetPID(2.0f, 0, 200.0f, 0);
+	leftBackMotor->SetCloseLoopRampRate(24);
+	rightBackMotor->SetCloseLoopRampRate(24);
 
 	turnChooser = new SendableChooser();
 	turnChooser->AddDefault(autoStraight, (void*) &autoStraight);
@@ -53,6 +75,13 @@ void Auto::AutoAutoInit() {
 					  //tBR-R: value for motor speed while rotating
 	turnSelected = *((std::string*) turnChooser->GetSelected());
 	rotateSelected = *((std::string*) rotateChooser->GetSelected());
+	
+	leftBackMotor->SetPosition(0);
+	rightBackMotor->SetPosition(0);
+	targetPosition = 0.0;
+
+	leftBackMotor->SetControlMode(CANTalon::ControlMode::kPosition);
+	rightBackMotor->SetControlMode(CANTalon::ControlMode::kPosition);
 }
 
 void Auto::AutoAutoPeriodic() {
