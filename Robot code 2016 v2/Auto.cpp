@@ -45,15 +45,43 @@ void Auto::AutoInit() {
 	rightBackMotor->SetCloseLoopRampRate(24);
 
 	turnChooser = new SendableChooser();
+	autoStraight = "Forward immediately";
+	autoLeft = "Turn left, then forward";
+	autoRight = "Turn right, then forward";
 	turnChooser->AddDefault(autoStraight, (void*) &autoStraight);
 	turnChooser->AddObject(autoLeft, (void*) &autoLeft);
 	turnChooser->AddObject(autoRight, (void*) &autoRight);
 	SmartDashboard::PutData("Autonomous Starting Turn", turnChooser);
+	
 	rotateChooser = new SendableChooser();
+	autoRotateNone = "Don't rotate after obstacle";
+	autoRotateLeft = "Rotate left after obstacle";
+	autoRotateRight = "Rotate right after obstacle";
 	rotateChooser->AddDefault(autoRotateNone, (void*) &autoRotateNone);
 	rotateChooser->AddObject(autoRotateLeft, (void*) &autoRotateLeft);
 	rotateChooser->AddObject(autoRotateRight, (void*) &autoRotateRight);
 	SmartDashboard::PutData("Autonomous Rotation", rotateChooser);
+	
+	obstacleChooser = new SendableChooser();
+	Default = "Default obstacle";
+	Moat = "Moat";
+	RoughTerrain = "Rough Terrain";
+	Ramparts = "Ramparts";
+	Seesaw = "Seesaw";
+	Drawbridge = "Drawbridge";
+	Portcullis = "Portcullis";
+	SallyPort = "Sally Port";
+	RockWall = "Rock Wall";
+	obstacleChooser->AddDefault(Default, (void*) &Default);
+	obstacleChooser->AddObject(Moat, (void*) &Moat);
+	obstacleChooser->AddObject(RoughTerrain, (void*) &RoughTerrain);
+	obstacleChooser->AddObject(Ramparts, (void*) &Ramparts);
+	obstacleChooser->AddObject(Seesaw, (void*) &Seesaw);
+	obstacleChooser->AddObject(Drawbridge, (void*) &Drawbridge);
+	obstacleChooser->AddObject(Portcullis, (void*) &Portcullis);
+	obstacleChooser->AddObject(SallyPort, (void*) &SallyPort);
+	obstacleChooser->AddObject(RockWall, (void*) &RockWall);
+	SmartDashboard::PutData("Autonomous Obstacle Select", obstacleChooser);
 
 }
 
@@ -75,6 +103,7 @@ void Auto::AutoAutoInit() {
 					  //tBR-R: value for motor speed while rotating
 	turnSelected = *((std::string*) turnChooser->GetSelected());
 	rotateSelected = *((std::string*) rotateChooser->GetSelected());
+	int obstable = selectionToInt(*((std::string*) obstacleChooser->GetSelected()));
 	
 	leftBackMotor->SetPosition(0);
 	rightBackMotor->SetPosition(0);
@@ -223,3 +252,34 @@ void Auto::driveStop() {
 	rightFrontMotor->Set(0);
 	rightBackMotor->Set(0);
 }
+
+int Auto::selectionToInt(std::string obstacleString) { //function that changes strings to integers
+	if (obstacleString == "Default") {
+		return 0;
+	}
+	if (obstacleString == "Moat") {
+		return 1;
+	}
+	if (obstacleString == "Rough Terrain") {
+		return 2;
+	}
+	if (obstacleString == "Ramparts") {
+		return 3;
+	}
+	if (obstacleString == "Seesaw") {
+		return 4;
+	}
+	if (obstacleString == "Drawbridge") {
+		return 5;
+	}
+	if (obstacleString == "Portcullis") {
+		return 6;
+	}
+	if (obstacleString == "Sally Port") {
+		return 7;
+	}
+	if (obstacleString == "Rock Wall") {
+		return 8;
+	}
+	else return -1;
+	}
