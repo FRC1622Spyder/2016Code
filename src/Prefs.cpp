@@ -16,30 +16,30 @@ void Prefs::PrefsInit() {
 
 	// Pneumatic Control Module (PCM) IDs
 	prefs->PutInt("pcmCANID", 7);
-	prefs->PutInt("armSolenoidExtendPCMPort", 0);
-	prefs->PutInt("armSolenoidRetractPCMPort", 1);
-	prefs->PutInt("shooterSolenoidExtend", 2);
-	prefs->PutInt("shooterSolenoidRetract", 3);
+	prefs->PutInt("armSolenoidExtendPCMPort", 2);
+	prefs->PutInt("armSolenoidRetractPCMPort", 3);
+	prefs->PutInt("shooterSolenoidExtend", 0);
+	prefs->PutInt("shooterSolenoidRetract", 1);
 
 	//ENCODEr stuffS
 	prefs->PutDouble("wheelCircumfrence", 23);
 	prefs->PutFloat("shooterTargetSpeed", 10);
 
 	// CANTalon IDs
-	prefs->PutInt("frontRightMotorCANTalonID", 4);
-	prefs->PutInt("frontLeftMotorCANTalonID", 3);
-	prefs->PutInt("backRightMotorCANTalonID", 5);
-	prefs->PutInt("backLeftMotorCANTalonID", 1);
-	prefs->PutInt("collectConveyorMotorCANTalonID", 8); //not implemented on robot yet
-	prefs->PutInt("collectArmMotorCANTalonID", 8); //not implemented on robot yet
-	prefs->PutInt("liftMotorCANTalonID", 8);  //not implemented on robot yet
-	prefs->PutInt("shooterTopMotorCANTalonID", 2);  //not implemented on robot yet
-	prefs->PutInt("shooterBottomMotorCANTalonID", 6);  //not implemented on robot yet
+	prefs->PutInt("frontRightMotorCANTalonID", 3);
+	prefs->PutInt("frontLeftMotorCANTalonID", 9);
+	prefs->PutInt("backRightMotorCANTalonID", 2);
+	prefs->PutInt("backLeftMotorCANTalonID", 8);
+	prefs->PutInt("collectConveyorMotorCANTalonID", 4); //not implemented on robot yet
+	prefs->PutInt("collectArmMotorCANTalonID", 5); //not implemented on robot yet
+	prefs->PutInt("liftMotorCANTalonID", 1);
+	prefs->PutInt("shooterTopMotorCANTalonID", 7);
+	prefs->PutInt("shooterBottomMotorCANTalonID", 6);
 
 	// Limit Switch IDs
 	prefs->PutInt("liftLimitSwitchLow", 0);
 	prefs->PutInt("liftLimitSwitchMed", 1);
-	prefs->PutInt("liftLimitSwitchHigh", 2);
+	prefs->PutInt("liftLimitSwitchHigh", 0);
 	prefs->PutInt("shooterBallDetectSwitch", 3);
 	prefs->PutInt("collectBallDetectSwitch1", 4);
 	prefs->PutInt("collectBallDetectSwitch2", 5);
@@ -51,9 +51,6 @@ void Prefs::PrefsInit() {
 	prefs->PutInt("leftAxis", 1);
 	prefs->PutInt("rightAxis", 3);
 	prefs->PutInt("armTrigger", 5);
-	prefs->PutInt("liftUpButton", 4);
-	prefs->PutInt("liftDownButton", 2);
-	prefs->PutInt("shooterTrigger", 8);
 	prefs->PutInt("halfSpeedButton", 6);
 
 	// auxJoyStick IDs
@@ -63,6 +60,10 @@ void Prefs::PrefsInit() {
 	prefs->PutInt("collectConveyerUpButton", 4);
 	prefs->PutInt("collectConveyerDownButton", 2);
 	prefs->PutInt("collectFinalLoadButton", 8);
+	prefs->PutInt("shooterTrigger", 8);
+	prefs->PutInt("liftUpButton", 4);
+	prefs->PutInt("liftDownButton", 2);
+	prefs->PutInt("liftRightAxis", 3);
 	prefs->PutInt("cameraSendButton", 5);
 
 	// Camera Prefs

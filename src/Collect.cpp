@@ -7,19 +7,19 @@ void Collect::CollectInit() {
 
 	// get preferences
 	prefs = Preferences::GetInstance();
-	collectConveyorMotorCANTalonID = prefs->GetInt("collectConveyorMotorCANTalonID", 5);
-	collectArmMotorCANTalonID =	prefs->GetInt("collectArmMotorCANTalonID", 6);
-	shooterBottomMotorCANTalonID = prefs->GetInt("shooterBottomMotorCANTalonID", 9);
-	collectBallDetectSwitch1 = prefs->GetInt("collectBallDetectSwitch1", 4);
-	collectBallDetectSwitch2 = prefs->GetInt("collectBallDetectSwitch2", 5);
-	collectConveyerUpSwitch = prefs->GetInt("collectConveyerUpSwitch", 6);
-	collectConveyerDownSwitch = prefs->GetInt("collectConveyerDownSwitch", 7);
-	auxJoystickNumber = prefs->GetInt("auxJoystickNumber", 1);
-	collectConveyerInButton = prefs->GetInt("collectConveyerInButton", 1);
-	collectConveyerOutButton = prefs->GetInt("collectConveyerOutButton", 3);
-	collectConveyerUpButton = prefs->GetInt("collectConveyerUpButton", 4);
-	collectConveyerDownButton = prefs->GetInt("collectConveyerDownButton", 2);
-	collectFinalLoadButton = prefs->GetInt("collectFinalLoadButton", 8);
+	collectConveyorMotorCANTalonID = prefs->GetInt("collectConveyorMotorCANTalonID");
+	collectArmMotorCANTalonID =	prefs->GetInt("collectArmMotorCANTalonID");
+	shooterBottomMotorCANTalonID = prefs->GetInt("shooterBottomMotorCANTalonID");
+	collectBallDetectSwitch1 = prefs->GetInt("collectBallDetectSwitch1");
+	collectBallDetectSwitch2 = prefs->GetInt("collectBallDetectSwitch2");
+	collectConveyerUpSwitch = prefs->GetInt("collectConveyerUpSwitch");
+	collectConveyerDownSwitch = prefs->GetInt("collectConveyerDownSwitch");
+	auxJoystickNumber = prefs->GetInt("auxJoystickNumber");
+	collectConveyerInButton = prefs->GetInt("collectConveyerInButton");
+	collectConveyerOutButton = prefs->GetInt("collectConveyerOutButton");
+	collectConveyerUpButton = prefs->GetInt("collectConveyerUpButton");
+	collectConveyerDownButton = prefs->GetInt("collectConveyerDownButton");
+	collectFinalLoadButton = prefs->GetInt("collectFinalLoadButton");
 
 
 	// assign motors and joystick

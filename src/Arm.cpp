@@ -8,11 +8,11 @@ void Arm::ArmInit() {
 
 	// Read the preferences from the preferences instance
 	prefs = Preferences::GetInstance();
-	pcmCANID = prefs->GetInt("pcmCANID", 7);
-	armSolenoidExtendPCMPort = prefs->GetInt("armSolenoidExtendPCMPort", 0);
-	armSolenoidRetractPCMPort = prefs->GetInt("armSolenoidRetractPCMPort", 1);
-	armTrigger = prefs->GetInt("armTrigger", 5);
-	driveJoystickNumber = prefs->GetInt("driveJoystickNumber", 0);
+	pcmCANID = prefs->GetInt("pcmCANID");
+	armSolenoidExtendPCMPort = prefs->GetInt("armSolenoidExtendPCMPort");
+	armSolenoidRetractPCMPort = prefs->GetInt("armSolenoidRetractPCMPort");
+	armTrigger = prefs->GetInt("armTrigger");
+	driveJoystickNumber = prefs->GetInt("driveJoystickNumber");
 
 	armSolenoid = new DoubleSolenoid(pcmCANID, armSolenoidExtendPCMPort,
 			armSolenoidRetractPCMPort);
