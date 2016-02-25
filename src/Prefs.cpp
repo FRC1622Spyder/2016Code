@@ -31,7 +31,7 @@ void Prefs::PrefsInit() {
 	prefs->PutInt("frontLeftMotorCANTalonID", 9);
 	prefs->PutInt("backRightMotorCANTalonID", 2);
 	prefs->PutInt("backLeftMotorCANTalonID", 8);
-	prefs->PutInt("collectConveyorMotorCANTalonID", 4); //need to check this one
+	prefs->PutInt("collectConveyorMotorCANTalonID", 4);
 	prefs->PutInt("liftMotorCANTalonID", 1);
 	prefs->PutInt("shooterTopMotorCANTalonID", 7);
 	prefs->PutInt("shooterBottomMotorCANTalonID", 6);
