@@ -11,7 +11,6 @@
 class Auto {
 
 private:
-	int autoLoopCounter;
 	CANTalon *leftBackMotor;
 	CANTalon *rightBackMotor;
 	CANTalon *leftFrontMotor;
@@ -19,18 +18,14 @@ private:
 
 	Preferences *prefs;
 
-	double wheelCircumfrence;
-	double driveRatio;
-    double targetPosition;
-
 	int frontRightMotorCANTalonID;
 	int frontLeftMotorCANTalonID;
 	int backRightMotorCANTalonID;
 	int backLeftMotorCANTalonID;
 
-	void allSpeedSet(double s);
-	void leftSpeedSet(double s);
-	void rightSpeedSet(double s);
+	double wheelCircumfrence;
+	double driveRatio;
+	int timer;
 
 public:
 	void AutoInit();
@@ -39,6 +34,10 @@ public:
 	void AutoTeleopInit();
 	void AutoTeleopPeriodic();
 	void AutoDisable();
+
+	void allSpeedSet(double s);
+	void leftSpeedSet(double s);
+	void rightSpeedSet(double s);
 
 };
 

@@ -17,7 +17,7 @@ private:
 	CANTalon *leftFrontMotor;
 	CANTalon *rightFrontMotor;
 	Joystick *joy;
-//	bool halfButtonvalue = false;
+	bool halfButtonValue;
 
 	Preferences *prefs;
 
@@ -29,15 +29,8 @@ private:
 	int leftAxis;
 	int rightAxis;
 
-
 	double wheelCircumfrence;
 	double driveRatio;
-
-
-
-	void allSpeedSet(double s);
-	void leftSpeedSet(double s);
-	void rightSpeedSet(double s);
 
 public:
 	void DriveInit();
@@ -46,6 +39,11 @@ public:
 	void DriveTeleopInit();
 	void DriveTeleopPeriodic();
 	void DriveDisable();
+
+	void allSpeedSet(double s);
+	void leftSpeedSet(double s);
+	void rightSpeedSet(double s);
+
 
 };
 

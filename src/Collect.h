@@ -12,26 +12,19 @@ class Collect {
 
 private:
 	CANTalon *collectConveyorMotor;
-	CANTalon *collectArmMotor;
-	CANTalon *shooterTopMotor;
-	CANTalon *shooterBottomMotor;
+	CANTalon *lowerWheel;
+
 	Joystick *joy;
+	float collectTargetSpeed; // This is the target speed for the lower shooter motor when used during intake
+	float collectVBusValue; // This is for the intake motor
 
 	Preferences *prefs;
 
 	int collectConveyorMotorCANTalonID;
-	int collectArmMotorCANTalonID;
 	int shooterBottomMotorCANTalonID;
-	int collectBallDetectSwitch1;
-	int collectBallDetectSwitch2;
-	int collectConveyerUpSwitch;
-	int collectConveyerDownSwitch;
 	int auxJoystickNumber;
 	int collectConveyerInButton;
 	int collectConveyerOutButton;
-	int collectConveyerUpButton;
-	int collectConveyerDownButton;
-	int collectFinalLoadButton;
 
 public:
 	void CollectInit();

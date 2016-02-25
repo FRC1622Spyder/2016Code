@@ -49,6 +49,8 @@ public:
 		autoSystem.AutoInit();
 		camera.CameraInit(); // this subsystem needs to be called last
 
+
+
 	}
 
 	void AutonomousInit() {

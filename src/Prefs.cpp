@@ -23,28 +23,22 @@ void Prefs::PrefsInit() {
 
 	//ENCODEr stuffS
 	prefs->PutDouble("wheelCircumfrence", 23);
-	prefs->PutFloat("shooterTargetSpeed", 10);
+	prefs->PutFloat("shooterTargetSpeed", 10.0f);
+	prefs->PutFloat("collectTargetSpeed", 1.0f);
 
 	// CANTalon IDs
 	prefs->PutInt("frontRightMotorCANTalonID", 3);
 	prefs->PutInt("frontLeftMotorCANTalonID", 9);
 	prefs->PutInt("backRightMotorCANTalonID", 2);
 	prefs->PutInt("backLeftMotorCANTalonID", 8);
-	prefs->PutInt("collectConveyorMotorCANTalonID", 4); //not implemented on robot yet
-	prefs->PutInt("collectArmMotorCANTalonID", 5); //not implemented on robot yet
+	prefs->PutInt("collectConveyorMotorCANTalonID", 4); //need to check this one
 	prefs->PutInt("liftMotorCANTalonID", 1);
 	prefs->PutInt("shooterTopMotorCANTalonID", 7);
 	prefs->PutInt("shooterBottomMotorCANTalonID", 6);
 
 	// Limit Switch IDs
-	prefs->PutInt("liftLimitSwitchLow", 0);
-	prefs->PutInt("liftLimitSwitchMed", 1);
+	prefs->PutInt("liftLimitSwitchLow", 1); //not implemented on robot yet
 	prefs->PutInt("liftLimitSwitchHigh", 0);
-	prefs->PutInt("shooterBallDetectSwitch", 3);
-	prefs->PutInt("collectBallDetectSwitch1", 4);
-	prefs->PutInt("collectBallDetectSwitch2", 5);
-	prefs->PutInt("collectConveyerUpSwitch", 6);
-	prefs->PutInt("collectConveyerDownSwitch", 7);
 
 	// driveJoyStick IDs
 	prefs->PutInt("driveJoystickNumber", 0);
@@ -57,16 +51,11 @@ void Prefs::PrefsInit() {
 	prefs->PutInt("auxJoystickNumber", 1);
 	prefs->PutInt("collectConveyerInButton", 1);
 	prefs->PutInt("collectConveyerOutButton", 3);
-	prefs->PutInt("collectConveyerUpButton", 4);
-	prefs->PutInt("collectConveyerDownButton", 2);
-	prefs->PutInt("collectFinalLoadButton", 8);
 	prefs->PutInt("shooterTrigger", 8);
 	prefs->PutInt("liftUpButton", 4);
 	prefs->PutInt("liftDownButton", 2);
-	prefs->PutInt("liftRightAxis", 3);
-	prefs->PutInt("cameraSendButton", 5);
 
 	// Camera Prefs
-	prefs->PutInt("Brightness", 40);
+	prefs->PutInt("Brightness", 40); // not on robot yet
 
 }

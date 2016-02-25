@@ -15,12 +15,8 @@ private:
 	bool shooterButtonvalue;
 	int ceeout;
 	DoubleSolenoid *exsole;
-	Timer *rightTimer;
-	DigitalInput *shooterLimitSwitch;
-	DigitalInput *shooterLimitSwitch1;
-	DigitalInput *shooterLimitSwitch2;
 	CANTalon *topWheel;
-	CANTalon *lowerWheel;
+	CANTalon *lowerWheel; // public so it can be accessed by collect
 	int timer;
 	float targetSpeed;
 	float actualTopSpeed;
@@ -36,10 +32,10 @@ private:
 	int driveJoystickNumber;
 	int shooterTrigger;
 
-
 	bool WithinPercent(float target,float actual);
 
 public:
+
 	void ShooterInit();
 	void ShooterAutoInit();
 	void ShooterAutoPeriodic();

@@ -26,9 +26,13 @@ void Drive::DriveInit() {
 	rightFrontMotor = new CANTalon(frontRightMotorCANTalonID);
 	joy = new Joystick(driveJoystickNumber);
 
-	// setup motors
+	// invert left motors
 	leftBackMotor->SetInverted(true);
 	leftFrontMotor->SetInverted(true);
+
+	//Set drive motors to vBus
+	leftBackMotor->SetControlMode(CANSpeedController::kPercentVbus);
+	rightBackMotor->SetControlMode(CANSpeedController::kPercentVbus);
 
 	//Set front motors to follow back
 	leftFrontMotor->SetControlMode(CANSpeedController::kFollower);
@@ -48,10 +52,10 @@ void Drive::DriveInit() {
 
 void Drive::DriveDisable() {
 
-	//leftBackMotor->Set(0);
-	//leftFrontMotor->Set(0);
-	//rightBackMotor->Set(0);
-	//rightFrontMotor->Set(0);
+	leftBackMotor->Set(0);
+	leftFrontMotor->Set(0);
+	rightBackMotor->Set(0);
+	rightFrontMotor->Set(0);
 
 }
 
@@ -72,22 +76,26 @@ void Drive::DriveTeleopInit() {
 void Drive::DriveTeleopPeriodic() {
 	double leftVal;
 	double rightVal;
-	bool halfButtonValue = joy->GetRawButton(prefs->GetInt("halfSpeedButton"));
 
+
+	halfButtonValue = joy->GetRawButton(prefs->GetInt("halfSpeedButton"));
 	leftVal = joy->GetRawAxis(leftAxis);
 	rightVal = joy->GetRawAxis(rightAxis);
 
 //	cout << "Drive Left: " << leftVal << endl;
 //	cout << "Drive Right: " << rightVal << endl;
 
+	// cut speed in half if button is pressed
 	if (halfButtonValue) {
 		leftVal = leftVal / 2;
 		rightVal = rightVal / 2;
 	}
 
+	// create dead zone at 10%
 	leftVal = fabs(leftVal) > 0.1 ? leftVal : 0;
 	rightVal = fabs(rightVal) > 0.1 ? rightVal : 0;
 
+	// limmit speed to 80%
 	leftVal = leftVal * .8;
 	rightVal = rightVal * .8;
 
@@ -105,7 +113,6 @@ void Drive::DriveTeleopPeriodic() {
 void Drive::allSpeedSet(double s) {
 	leftBackMotor->Set(s);
 	rightBackMotor->Set(s);
-
 }
 
 void Drive::leftSpeedSet(double s) {
@@ -114,5 +121,4 @@ void Drive::leftSpeedSet(double s) {
 
 void Drive::rightSpeedSet(double s) {
 	rightBackMotor->Set(s);
-
 }
