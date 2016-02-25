@@ -12,7 +12,6 @@ void Shooter::ShooterInit() {
 	shooterTopMotorCANTalonID = prefs->GetInt("shooterTopMotorCANTalonID");
 	shooterBottomMotorCANTalonID = prefs->GetInt(
 			"shooterBottomMotorCANTalonID");
-	shooterBallDetectSwitch = prefs->GetInt("shooterBallDetectSwitch");
 	driveJoystickNumber = prefs->GetInt("driveJoystickNumber");
 	shooterTrigger = prefs->GetInt("shooterTrigger");
 	firePhase = 0;
@@ -20,8 +19,7 @@ void Shooter::ShooterInit() {
 	shooterButtonvalue = false;
 	exsole = new DoubleSolenoid(pcmCANID, shooterSolenoidExtend,
 			shooterSolenoidRetract);
-	rightTimer = new Timer();
-	shooterLimitSwitch = new DigitalInput(shooterBallDetectSwitch);
+
 	timer = 0;
 	targetSpeed = prefs->GetFloat("shooterTargetSpeed", 10.0f);
 	actualTopSpeed = 0.0f;
@@ -30,24 +28,33 @@ void Shooter::ShooterInit() {
 	//Set up wheels
 	topWheel = new CANTalon(shooterTopMotorCANTalonID);
 	lowerWheel = new CANTalon(shooterBottomMotorCANTalonID);
+
+	// set up encoders
 	topWheel->SetFeedbackDevice(CANTalon::QuadEncoder);
-	topWheel->ConfigEncoderCodesPerRev(250); //change to 250 before using
+	topWheel->ConfigEncoderCodesPerRev(250);
 	lowerWheel->SetFeedbackDevice(CANTalon::QuadEncoder);
-	lowerWheel->ConfigEncoderCodesPerRev(250); //change to 250 before using
+	lowerWheel->ConfigEncoderCodesPerRev(250);
+
+	// set control mode to closed-loop velocity
 	topWheel->SetControlMode(CANSpeedController::kSpeed);
 	lowerWheel->SetControlMode(CANSpeedController::kSpeed);
+
+	//set speeds to 0
 	topWheel->Set(0);
 	lowerWheel->Set(0);
 
-	//set closed loop gains
-	topWheel->SelectProfileSlot(0);
-	lowerWheel->SelectProfileSlot(0);
-	topWheel->SetPID(0.0f, 0, 0.0f, 200);
-	lowerWheel->SetPID(0.0f, 0, 0.0f, 200);
+	//set voltages
 	topWheel->ConfigNominalOutputVoltage(+0.0f, -0.0f);
 	lowerWheel->ConfigNominalOutputVoltage(+0.0f, -0.0f);
 	topWheel->ConfigPeakOutputVoltage(+12.0f, -12.0f);
 	lowerWheel->ConfigPeakOutputVoltage(+12.0f, -12.0f);
+
+	//set closed loop gains
+	//TODO == play with these to get the speed consistent
+	topWheel->SelectProfileSlot(0);
+	lowerWheel->SelectProfileSlot(0);
+	topWheel->SetPID(0.0f, 0.0f, 0.0f, 200.0f);
+	lowerWheel->SetPID(0.0f, 0.0f, 0.0f, 200.0f);
 
 }
 
@@ -63,12 +70,7 @@ void Shooter::ShooterAutoInit() {
 }
 
 void Shooter::ShooterAutoPeriodic() {
-	/*  Old code used to test switches
-	 cout << "Limit Switches: ";
-	 cout << shooterLimitSwitch->Get() << " ";
-	 cout << shooterLimitSwitch1->Get() << " ";
-	 cout << shooterLimitSwitch2->Get() << endl;
-	 */
+
 }
 
 void Shooter::ShooterTeleopInit() {
@@ -81,7 +83,7 @@ void Shooter::ShooterTeleopPeriodic() {
 	case 0: //check if a ball is loaded
 		cout << "0" << endl;
 		timer = 0;
-		if (shooterLimitSwitch->Get()) {
+		if (true) {
 			firePhase++;
 		}
 
@@ -98,7 +100,7 @@ void Shooter::ShooterTeleopPeriodic() {
 		break;
 	case 2: //spin up flywheels
 		cout << "2" << endl;
-		targetSpeed = prefs->GetFloat("shooterTargetSpeed", 10.0f); // get new target speed from prefs file in case changed through dashboard
+		targetSpeed = prefs->GetFloat("shooterTargetSpeed"); // get new target speed from prefs file in case changed through dashboard
 		topWheel->Set(targetSpeed);
 		lowerWheel->Set(targetSpeed);
 		actualTopSpeed = topWheel->GetSpeed();
@@ -109,8 +111,7 @@ void Shooter::ShooterTeleopPeriodic() {
 		if (timer >= 150) {
 			timer = 0;
 			firePhase++;
-		}
-		if (WithinPercent(targetSpeed, actualTopSpeed)
+		} else if (WithinPercent(targetSpeed, actualTopSpeed)
 				and WithinPercent(targetSpeed, actualLowerSpeed)) {
 			timer = 0;
 			firePhase++;
@@ -121,8 +122,7 @@ void Shooter::ShooterTeleopPeriodic() {
 
 		exsole->Set(DoubleSolenoid::Value::kForward);
 
-//		if (!shooterLimitSwitch->Get()) {
-			if (true) {
+		if (true) {
 			firePhase++;
 		}
 
@@ -150,7 +150,7 @@ void Shooter::ShooterTeleopPeriodic() {
 bool Shooter::WithinPercent(float target, float actual) {
 	float difference = 1.0 - (actual / target);
 	// put percentage in next line
-	if (difference < .01 and difference > -.01) {
+	if (difference < .05 and difference > -.05) {
 		return true;
 	} else {
 		return false;
