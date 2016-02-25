@@ -25,12 +25,12 @@ void Collect::CollectInit() {
 	collectConveyorMotor->SetControlMode(CANSpeedController::kPercentVbus);
 	collectVBusValue = 0.5; // TODO need to figure out what the right speed is for this. (Percent VBus)
 
-	lowerWheel->SetFeedbackDevice(CANTalon::QuadEncoder);
-	lowerWheel->ConfigEncoderCodesPerRev(250);
 
 	lowerWheel->SetControlMode(CANSpeedController::kSpeed);
-
 	lowerWheel->Set(0);
+
+	lowerWheel->SetFeedbackDevice(CANTalon::QuadEncoder);
+	lowerWheel->ConfigEncoderCodesPerRev(250);
 
 	lowerWheel->ConfigNominalOutputVoltage(+0.0f, -0.0f);
 	lowerWheel->ConfigPeakOutputVoltage(+12.0f, -12.0f);
@@ -70,10 +70,15 @@ void Collect::CollectTeleopPeriodic() {
 	}
 
 	// If out button is pressed, go out
-	if (joy->GetRawButton(collectConveyerOutButton)) {
+	else if (joy->GetRawButton(collectConveyerOutButton)) {
 		collectConveyorMotor->Set(-1 * collectVBusValue);
 		collectTargetSpeed = prefs->GetFloat("collectTargetSpeed"); // get this speed from prefs file
 		lowerWheel->Set(-1 * collectTargetSpeed);
+	}
+
+	else {
+		collectConveyorMotor->Set(0);
+		lowerWheel->Set(0);
 	}
 
 }
