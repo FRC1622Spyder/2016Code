@@ -1,6 +1,7 @@
 #include "WPILib.h"
 #include "Shooter.h"
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 void Shooter::ShooterInit() {
@@ -12,6 +13,8 @@ void Shooter::ShooterInit() {
 	shooterTopMotorCANTalonID = prefs->GetInt("shooterTopMotorCANTalonID");
 	shooterBottomMotorCANTalonID = prefs->GetInt(
 			"shooterBottomMotorCANTalonID");
+	collectConveyorMotorCANTalonID = prefs->GetInt(
+			"collectConveyorMotorCANTalonID");
 	auxJoystickNumber = prefs->GetInt("auxJoystickNumber");
 	shooterTrigger = prefs->GetInt("shooterTrigger");
 	firePhase = 0;
@@ -19,6 +22,8 @@ void Shooter::ShooterInit() {
 	shooterButtonvalue = false;
 	exsole = new DoubleSolenoid(pcmCANID, shooterSolenoidExtend,
 			shooterSolenoidRetract);
+	collectConveyerInButton = prefs->GetInt("collectConveyerInButton");
+	collectConveyerOutButton = prefs->GetInt("collectConveyerOutButton");
 
 	timer = 0;
 	targetSpeed = prefs->GetFloat("shooterTargetSpeed", 10.0f);
@@ -28,16 +33,20 @@ void Shooter::ShooterInit() {
 	//Set up wheels
 	topWheel = new CANTalon(shooterTopMotorCANTalonID);
 	lowerWheel = new CANTalon(shooterBottomMotorCANTalonID);
+	collectConveyorMotor = new CANTalon(collectConveyorMotorCANTalonID);
 
 	// set up encoders
 	topWheel->SetFeedbackDevice(CANTalon::QuadEncoder);
 	topWheel->ConfigEncoderCodesPerRev(250);
 	lowerWheel->SetFeedbackDevice(CANTalon::QuadEncoder);
 	lowerWheel->ConfigEncoderCodesPerRev(250);
+	lowerWheel->SetSensorDirection(true);
 
 	// set control mode to closed-loop velocity
 	topWheel->SetControlMode(CANSpeedController::kSpeed);
 	lowerWheel->SetControlMode(CANSpeedController::kSpeed);
+	collectConveyorMotor->SetControlMode(CANSpeedController::kPercentVbus);
+	collectVBusValue = 0.5; // TODO need to figure out what the right speed is for this. (Percent VBus)
 
 	//set speeds to 0
 	topWheel->Set(0);
@@ -63,6 +72,7 @@ void Shooter::ShooterDisable() {
 	lowerWheel->Set(0);
 	topWheel->Set(0);
 	exsole->Set(DoubleSolenoid::Value::kReverse);
+	collectConveyorMotor->Set(0.0f);
 }
 
 void Shooter::ShooterAutoInit() {
@@ -81,15 +91,35 @@ void Shooter::ShooterTeleopPeriodic() {
 	switch (firePhase) //meant to fire then reset
 	{
 	case 0: //check if a ball is loaded
-		cout << "0" << endl;
+//		cout << "0" << endl;
 		timer = 0;
 		if (true) {
 			firePhase++;
 		}
 
 		break;
+
 	case 1: //check if launch button pressed
-		cout << "1" << endl;
+//		cout << "1" << endl;
+		// If in button is pressed, go in
+		if (shooterJoystick->GetRawButton(collectConveyerInButton)) {
+			collectConveyorMotor->Set(collectVBusValue);
+			collectTargetSpeed = prefs->GetFloat("collectTargetSpeed"); // get this speed from prefs file
+			lowerWheel->Set(collectTargetSpeed);
+		}
+
+		// If out button is pressed, go out
+		else if (shooterJoystick->GetRawButton(collectConveyerOutButton)) {
+			collectConveyorMotor->Set(-1 * collectVBusValue);
+			collectTargetSpeed = prefs->GetFloat("collectTargetSpeed"); // get this speed from prefs file
+			lowerWheel->Set(-1 * collectTargetSpeed);
+		}
+
+		else {
+			collectConveyorMotor->Set(0);
+			lowerWheel->Set(0);
+		}
+
 		shooterButtonvalue = shooterJoystick->GetRawButton(shooterTrigger);
 		if (shooterButtonvalue) {
 			firePhase++;
