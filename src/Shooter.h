@@ -16,11 +16,15 @@ private:
 	int ceeout;
 	DoubleSolenoid *exsole;
 	CANTalon *topWheel;
-	CANTalon *lowerWheel; // public so it can be accessed by collect
+	CANTalon *lowerWheel;
+	CANTalon *collectConveyorMotor;
 	int timer;
 	float targetSpeed;
 	float actualTopSpeed;
 	float actualLowerSpeed;
+	float collectVBusValue;
+	float collectTargetSpeed;
+
 
 	Preferences *prefs;
 	int pcmCANID;
@@ -31,6 +35,10 @@ private:
 	int shooterBallDetectSwitch;
 	int auxJoystickNumber;
 	int shooterTrigger;
+	int collectConveyorMotorCANTalonID;
+	int collectConveyerInButton;
+	int collectConveyerOutButton;
+
 
 	bool WithinPercent(float target,float actual);
 
