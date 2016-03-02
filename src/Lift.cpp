@@ -13,9 +13,9 @@ void Lift::LiftInit() {
 	liftLimitSwitchHigh = prefs->GetInt("liftLimitSwitchHigh");
 	liftUpButton = prefs->GetInt("liftUpButton");
 	liftDownButton = prefs->GetInt("liftDownButton");
-	driveJoystickNumber = prefs->GetInt("joystickNumber");
+	auxJoystickNumber = prefs->GetInt("auxJoystickNumber");
 
-	stick = new Joystick(driveJoystickNumber);
+	stick = new Joystick(auxJoystickNumber);
 	liftLimitSwitch1 = new DigitalInput(liftLimitSwitchLow);
 	liftLimitSwitch2 = new DigitalInput(liftLimitSwitchMed);
 	liftLimitSwitch3 = new DigitalInput(liftLimitSwitchHigh);
@@ -48,12 +48,14 @@ void Lift::LiftTeleopPeriodic() {
 
 
 	// If up button is pressed and up limit not reached, go up
-	if (stick->GetRawButton(liftUpButton) && !(stick->GetRawButton(liftLimitSwitchHigh))) {
+//	if (stick->GetRawButton(liftUpButton) && !(stick->GetRawButton(liftLimitSwitchHigh))) {
+	if (stick->GetRawButton(liftUpButton) && true) {
 		liftMotor->Set(1);
 	}
 
 	// If down button is pressed and down limit not reached, go down
-	else if (stick->GetRawButton(liftDownButton) && !(stick->GetRawButton(liftLimitSwitchLow))) {
+//	else if (stick->GetRawButton(liftDownButton) && !(stick->GetRawButton(liftLimitSwitchLow))) {
+	else if (stick->GetRawButton(liftDownButton) && true) {
 		liftMotor->Set(-1);
 	}
 

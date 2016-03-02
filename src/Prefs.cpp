@@ -41,14 +41,14 @@ void Prefs::PrefsInit() {
 	prefs->PutInt("liftLimitSwitchHigh", 0);
 
 	// driveJoyStick IDs
-	prefs->PutInt("driveJoystickNumber", 0);
+	prefs->PutInt("driveJoystickNumber", 0); //drive joystick
 	prefs->PutInt("leftAxis", 1);
 	prefs->PutInt("rightAxis", 3);
 	prefs->PutInt("armTrigger", 5);
 	prefs->PutInt("halfSpeedButton", 6);
 
 	// auxJoyStick IDs
-	prefs->PutInt("auxJoystickNumber", 1);
+	prefs->PutInt("auxJoystickNumber", 1);//operator joystick
 	prefs->PutInt("collectConveyerInButton", 1);
 	prefs->PutInt("collectConveyerOutButton", 3);
 	prefs->PutInt("shooterTrigger", 8);

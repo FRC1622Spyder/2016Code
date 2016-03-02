@@ -25,7 +25,7 @@ private:
 	int liftLimitSwitchHigh;
 	int liftUpButton;
 	int liftDownButton;
-	int driveJoystickNumber;
+	int auxJoystickNumber;
 
 public:
 	void LiftInit();

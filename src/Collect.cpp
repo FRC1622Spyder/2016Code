@@ -78,7 +78,7 @@ void Collect::CollectTeleopPeriodic() {
 
 	else {
 		collectConveyorMotor->Set(0);
-		lowerWheel->Set(0);
+//		lowerWheel->Set(0);
 	}
 
 }

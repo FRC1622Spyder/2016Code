@@ -29,7 +29,7 @@ private:
 	int shooterTopMotorCANTalonID;
 	int shooterBottomMotorCANTalonID;
 	int shooterBallDetectSwitch;
-	int driveJoystickNumber;
+	int auxJoystickNumber;
 	int shooterTrigger;
 
 	bool WithinPercent(float target,float actual);

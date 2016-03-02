@@ -12,10 +12,10 @@ void Shooter::ShooterInit() {
 	shooterTopMotorCANTalonID = prefs->GetInt("shooterTopMotorCANTalonID");
 	shooterBottomMotorCANTalonID = prefs->GetInt(
 			"shooterBottomMotorCANTalonID");
-	driveJoystickNumber = prefs->GetInt("driveJoystickNumber");
+	auxJoystickNumber = prefs->GetInt("auxJoystickNumber");
 	shooterTrigger = prefs->GetInt("shooterTrigger");
 	firePhase = 0;
-	shooterJoystick = new Joystick(driveJoystickNumber);
+	shooterJoystick = new Joystick(auxJoystickNumber);
 	shooterButtonvalue = false;
 	exsole = new DoubleSolenoid(pcmCANID, shooterSolenoidExtend,
 			shooterSolenoidRetract);
