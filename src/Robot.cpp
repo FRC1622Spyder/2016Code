@@ -2,7 +2,7 @@
 #include "Arm.h"
 #include "Drive.h"
 #include "Shooter.h"
-#include "Camera.h"
+//#include "Camera.h"
 #include "Lift.h"
 #include "Prefs.h"
 #include "Auto.h"
@@ -21,7 +21,7 @@ public:
 	Arm arm;
 	Drive drive;
 	Shooter shooter;
-	Camera camera;
+//	Camera camera;
 	Prefs prefSystem;
 	Auto autoSystem;
 
@@ -34,10 +34,7 @@ public:
 		drive.DriveInit();
 		shooter.ShooterInit();
 		autoSystem.AutoInit();
-		camera.CameraInit(); // this subsystem needs to be called last
-
-
-
+//		camera.CameraInit(); // this subsystem needs to be called last
 	}
 
 	void AutonomousInit() {

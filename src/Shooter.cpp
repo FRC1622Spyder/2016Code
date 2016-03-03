@@ -26,7 +26,7 @@ void Shooter::ShooterInit() {
 	collectConveyerOutButton = prefs->GetInt("collectConveyerOutButton");
 
 	timer = 0;
-	targetSpeed = prefs->GetFloat("shooterTargetSpeed", 10.0f);
+	targetSpeed = prefs->GetFloat("shooterTargetSpeed");
 	actualTopSpeed = 0.0f;
 	actualLowerSpeed = 0.0f;
 
@@ -62,8 +62,8 @@ void Shooter::ShooterInit() {
 	//TODO == play with these to get the speed consistent
 	topWheel->SelectProfileSlot(0);
 	lowerWheel->SelectProfileSlot(0);
-	topWheel->SetPID(0.0f, 0.0f, 0.0f, 200.0f);
-	lowerWheel->SetPID(0.0f, 0.0f, 0.0f, 200.0f);
+	topWheel->SetPID(0.8f, 0.008f, 20.0f, 0.3897f);
+	lowerWheel->SetPID(0.8f, 0.008f, 20.0f, 0.3897f);
 
 }
 
@@ -129,7 +129,7 @@ void Shooter::ShooterTeleopPeriodic() {
 
 		break;
 	case 2: //spin up flywheels
-		cout << "2" << endl;
+		cout << "2: timer: " << timer << endl;
 		targetSpeed = prefs->GetFloat("shooterTargetSpeed"); // get new target speed from prefs file in case changed through dashboard
 		topWheel->Set(targetSpeed);
 		lowerWheel->Set(targetSpeed);
@@ -138,13 +138,15 @@ void Shooter::ShooterTeleopPeriodic() {
 		cout << "Top Speed: " << actualTopSpeed << endl;
 		cout << "Lower Speed: " << actualLowerSpeed << endl;
 		timer = timer + 1;
-		if (timer >= 150) {
+		if (timer >= 100) {
 			timer = 0;
 			firePhase++;
+/*
 		} else if (WithinPercent(targetSpeed, actualTopSpeed)
 				and WithinPercent(targetSpeed, actualLowerSpeed)) {
 			timer = 0;
 			firePhase++;
+*/
 		}
 		break;
 
@@ -158,10 +160,10 @@ void Shooter::ShooterTeleopPeriodic() {
 
 		break;
 
-	case 4: // wait three seconds to make sure ball is gone
+	case 4: // wait 1.5 seconds to make sure ball is gone
 
 		timer = timer + 1;
-		if (timer >= 150) {
+		if (timer >= 75) {
 			firePhase++;
 		}
 		break;
@@ -180,7 +182,7 @@ void Shooter::ShooterTeleopPeriodic() {
 bool Shooter::WithinPercent(float target, float actual) {
 	float difference = 1.0 - (actual / target);
 	// put percentage in next line
-	if (difference < .05 and difference > -.05) {
+	if (difference < .01 and difference > -.01) {
 		return true;
 	} else {
 		return false;

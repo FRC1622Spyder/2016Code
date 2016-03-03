@@ -16,8 +16,8 @@ void Drive::DriveInit() {
 	driveJoystickNumber = prefs->GetInt("joystickNumber");
 	leftAxis = prefs->GetInt("leftAxis");
 	rightAxis = prefs->GetInt("rightAxis");
-	wheelCircumfrence = prefs->GetDouble("wheelCircumfrence");
-	driveRatio = 8.45;
+//	wheelCircumfrence = prefs->GetDouble("wheelCircumfrence");
+//	driveRatio = 8.45;
 
 	// assign motors and joystick
 	leftBackMotor = new CANTalon(backLeftMotorCANTalonID);
@@ -33,20 +33,22 @@ void Drive::DriveInit() {
 	//Set drive motors to vBus
 	leftBackMotor->SetControlMode(CANSpeedController::kPercentVbus);
 	rightBackMotor->SetControlMode(CANSpeedController::kPercentVbus);
+	leftFrontMotor->SetControlMode(CANSpeedController::kPercentVbus);
+	rightFrontMotor->SetControlMode(CANSpeedController::kPercentVbus);
 
 	//Set front motors to follow back
-	leftFrontMotor->SetControlMode(CANSpeedController::kFollower);
-	leftFrontMotor->Set(backLeftMotorCANTalonID);
+//	leftFrontMotor->SetControlMode(CANSpeedController::kFollower);
+//	leftFrontMotor->Set(backLeftMotorCANTalonID);
 
-	rightFrontMotor->SetControlMode(CANSpeedController::kFollower);
-	rightFrontMotor->Set(backRightMotorCANTalonID);
+//	rightFrontMotor->SetControlMode(CANSpeedController::kFollower);
+//	rightFrontMotor->Set(backRightMotorCANTalonID);
 
 	//Setup encoders
-	leftBackMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
-	leftBackMotor->ConfigEncoderCodesPerRev(20);
+//	leftBackMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
+//	leftBackMotor->ConfigEncoderCodesPerRev(20);
 
-	rightBackMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
-	rightBackMotor->ConfigEncoderCodesPerRev(20);
+//	rightBackMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
+//	rightBackMotor->ConfigEncoderCodesPerRev(20);
 
 }
 
@@ -68,8 +70,8 @@ void Drive::DriveAutoPeriodic() {
 }
 
 void Drive::DriveTeleopInit() {
-	leftBackMotor->SetPosition(0);
-	rightBackMotor->SetPosition(0);
+//	leftBackMotor->SetPosition(0);
+//	rightBackMotor->SetPosition(0);
 
 }
 
@@ -96,8 +98,8 @@ void Drive::DriveTeleopPeriodic() {
 	rightVal = fabs(rightVal) > 0.1 ? rightVal : 0;
 
 	// limmit speed to 80%
-	leftVal = leftVal * .8;
-	rightVal = rightVal * .8;
+//	leftVal = leftVal * .8;
+//	rightVal = rightVal * .8;
 
 	leftSpeedSet(leftVal);
 	rightSpeedSet(rightVal);
@@ -113,12 +115,16 @@ void Drive::DriveTeleopPeriodic() {
 void Drive::allSpeedSet(double s) {
 	leftBackMotor->Set(s);
 	rightBackMotor->Set(s);
+	leftFrontMotor->Set(s);
+	rightFrontMotor->Set(s);
 }
 
 void Drive::leftSpeedSet(double s) {
 	leftBackMotor->Set(s);
+	leftFrontMotor->Set(s);
 }
 
 void Drive::rightSpeedSet(double s) {
 	rightBackMotor->Set(s);
+	rightFrontMotor->Set(s);
 }

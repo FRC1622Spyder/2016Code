@@ -15,9 +15,9 @@ private:
 	DoubleSolenoid *armSolenoid;
 	DoubleSolenoid *armSolenoid2;
 	DoubleSolenoid *armSolenoid3;
-	DoubleSolenoid *armSolenoid4;
 	int state;
-	int solenoidSelect;
+	int state2;
+	int state3;
 	Joystick *stick;
 
 	// preference variables
@@ -32,10 +32,7 @@ private:
 	int armSolenoidExtendPCMPort3;
 	int armSolenoidRetractPCMPort3;
 	int armTrigger3;
-	int armSolenoidExtendPCMPort4;
-	int armSolenoidRetractPCMPort4;
-	int armTrigger4;
-	int driveJoystickNumber;
+	int auxJoystickNumber;
 
 public:
 	void ArmInit();
