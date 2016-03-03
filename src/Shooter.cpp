@@ -62,8 +62,8 @@ void Shooter::ShooterInit() {
 	//TODO == play with these to get the speed consistent
 	topWheel->SelectProfileSlot(0);
 	lowerWheel->SelectProfileSlot(0);
-	topWheel->SetPID(0.0f, 0.0f, 0.0f, 200.0f);
-	lowerWheel->SetPID(0.0f, 0.0f, 0.0f, 200.0f);
+	topWheel->SetPID(0.0f, 0.0f, 0.0f, 0.0f);
+	lowerWheel->SetPID(0.0f, 0.0f, 0.0f, 0.0f);
 
 }
 
@@ -88,91 +88,26 @@ void Shooter::ShooterTeleopInit() {
 }
 
 void Shooter::ShooterTeleopPeriodic() {
-	switch (firePhase) //meant to fire then reset
-	{
-	case 0: //check if a ball is loaded
-//		cout << "0" << endl;
-		timer = 0;
-		if (true) {
-			firePhase++;
-		}
 
-		break;
+	double leftYstick = shooterJoystick->GetRawAxis(1);
+	double motorOutput = lowerWheel->GetOutputVoltage() / lowerWheel->GetBusVoltage();
+	double targetSpeed = leftYstick * 1500.0;
 
-	case 1: //check if launch button pressed
-//		cout << "1" << endl;
-		// If in button is pressed, go in
-		if (shooterJoystick->GetRawButton(collectConveyerInButton)) {
-			collectConveyorMotor->Set(collectVBusValue);
-			collectTargetSpeed = prefs->GetFloat("collectTargetSpeed"); // get this speed from prefs file
-			lowerWheel->Set(collectTargetSpeed);
-		}
+	cout << "out: " << motorOutput << " spd: " << lowerWheel->GetSpeed();
 
-		// If out button is pressed, go out
-		else if (shooterJoystick->GetRawButton(collectConveyerOutButton)) {
-			collectConveyorMotor->Set(-1 * collectVBusValue);
-			collectTargetSpeed = prefs->GetFloat("collectTargetSpeed"); // get this speed from prefs file
-			lowerWheel->Set(-1 * collectTargetSpeed);
-		}
-
-		else {
-			collectConveyorMotor->Set(0);
-			lowerWheel->Set(0);
-		}
-
-		shooterButtonvalue = shooterJoystick->GetRawButton(shooterTrigger);
-		if (shooterButtonvalue) {
-			firePhase++;
-			ceeout = 0;
-			shooterButtonvalue = false;
-		}
-
-		break;
-	case 2: //spin up flywheels
-		cout << "2" << endl;
-		targetSpeed = prefs->GetFloat("shooterTargetSpeed"); // get new target speed from prefs file in case changed through dashboard
-		topWheel->Set(targetSpeed);
+	if(shooterJoystick->GetRawButton(shooterTrigger)) {
+		lowerWheel->SetControlMode(CANSpeedController::kSpeed);
 		lowerWheel->Set(targetSpeed);
-		actualTopSpeed = topWheel->GetSpeed();
-		actualLowerSpeed = lowerWheel->GetSpeed();
-		cout << "Top Speed: " << actualTopSpeed << endl;
-		cout << "Lower Speed: " << actualLowerSpeed << endl;
-		timer = timer + 1;
-		if (timer >= 150) {
-			timer = 0;
-			firePhase++;
-		} else if (WithinPercent(targetSpeed, actualTopSpeed)
-				and WithinPercent(targetSpeed, actualLowerSpeed)) {
-			timer = 0;
-			firePhase++;
-		}
-		break;
+	}
+	else {
+		lowerWheel->SetControlMode(CANSpeedController::kPercentVbus);
+		lowerWheel->Set(leftYstick);
+	}
 
-	case 3: //fire piston
-
-		exsole->Set(DoubleSolenoid::Value::kForward);
-
-		if (true) {
-			firePhase++;
-		}
-
-		break;
-
-	case 4: // wait three seconds to make sure ball is gone
-
-		timer = timer + 1;
-		if (timer >= 150) {
-			firePhase++;
-		}
-		break;
-
-	case 5: //reset piston , deactivate flywheels
-
-		topWheel->Set(0);
-		lowerWheel->Set(0);
-		exsole->Set(DoubleSolenoid::Value::kReverse);
-		firePhase = 0;
-		break;
+	if (++timer >= 10) {
+		timer = 0;
+		cout << "out: " << motorOutput << " spd: " << lowerWheel->GetSpeed();
+		cout << " err: " << lowerWheel->GetClosedLoopError() << " trg: " << targetSpeed << endl;
 	}
 }
 
