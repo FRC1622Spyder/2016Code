@@ -62,8 +62,8 @@ void Shooter::ShooterInit() {
 	//TODO == play with these to get the speed consistent
 	topWheel->SelectProfileSlot(0);
 	lowerWheel->SelectProfileSlot(0);
-	topWheel->SetPID(0.0f, 0.0f, 0.0f, 0.0f);
-	lowerWheel->SetPID(0.0f, 0.0f, 0.0f, 0.0f);
+	topWheel->SetPID(1.023f, 0.0f, 0.0f, 0.3897f);
+	lowerWheel->SetPID(1.023f, 0.0f, 0.0f, 0.3897sf);
 
 }
 
@@ -92,8 +92,6 @@ void Shooter::ShooterTeleopPeriodic() {
 	double leftYstick = shooterJoystick->GetRawAxis(1);
 	double motorOutput = lowerWheel->GetOutputVoltage() / lowerWheel->GetBusVoltage();
 	double targetSpeed = leftYstick * 1500.0;
-
-	cout << "out: " << motorOutput << " spd: " << lowerWheel->GetSpeed();
 
 	if(shooterJoystick->GetRawButton(shooterTrigger)) {
 		lowerWheel->SetControlMode(CANSpeedController::kSpeed);
