@@ -13,7 +13,6 @@ private:
 	int firePhase;
 	Joystick *shooterJoystick;
 	bool shooterButtonvalue;
-	int ceeout;
 	DoubleSolenoid *exsole;
 	CANTalon *topWheel;
 	CANTalon *lowerWheel;
@@ -38,6 +37,8 @@ private:
 	int collectConveyorMotorCANTalonID;
 	int collectConveyerInButton;
 	int collectConveyerOutButton;
+	int choice;
+	int piston;
 
 
 	bool WithinPercent(float target,float actual);

@@ -9,9 +9,9 @@ void Arm::ArmInit() {
 	// Read the preferences from the preferences instance
 	prefs = Preferences::GetInstance();
 	pcmCANID = prefs->GetInt("pcmCANID");
-	armSolenoidExtendPCMPort = prefs->GetInt("armSolenoidExtendPCMPort");
-	armSolenoidRetractPCMPort = prefs->GetInt("armSolenoidRetractPCMPort");
-	armTrigger = prefs->GetInt("armTrigger");
+	//armSolenoidExtendPCMPort = prefs->GetInt("armSolenoidExtendPCMPort");
+	//armSolenoidRetractPCMPort = prefs->GetInt("armSolenoidRetractPCMPort");
+	//armTrigger = prefs->GetInt("armTrigger");
 	armSolenoidExtendPCMPort2 = prefs->GetInt("armSolenoidExtendPCMPort2");
 	armSolenoidRetractPCMPort2 = prefs->GetInt("armSolenoidRetractPCMPort2");
 	armTrigger2 = prefs->GetInt("armTrigger2");
@@ -20,8 +20,8 @@ void Arm::ArmInit() {
 	armTrigger3 = prefs->GetInt("armTrigger3");
 	auxJoystickNumber = prefs->GetInt("auxJoystickNumber");
 
-	armSolenoid = new DoubleSolenoid(pcmCANID, armSolenoidExtendPCMPort,
-			armSolenoidRetractPCMPort);
+	//armSolenoid = new DoubleSolenoid(pcmCANID, shooterSolenoidExtend,
+		//	shooterSolenoidRetract);
 	armSolenoid2 = new DoubleSolenoid(pcmCANID, armSolenoidExtendPCMPort2,
 			armSolenoidRetractPCMPort2);
 	armSolenoid3 = new DoubleSolenoid(pcmCANID, armSolenoidExtendPCMPort3,
@@ -32,7 +32,7 @@ void Arm::ArmInit() {
 
 void Arm::ArmDisable() {
 
-	armSolenoid->Set(DoubleSolenoid::Value::kReverse);
+	//armSolenoid->Set(DoubleSolenoid::Value::kReverse);
 	armSolenoid2->Set(DoubleSolenoid::Value::kReverse);
 	armSolenoid3->Set(DoubleSolenoid::Value::kReverse);
 }
@@ -48,10 +48,10 @@ void Arm::ArmTeleopInit() {
 }
 
 void Arm::ArmTeleopPeriodic() {
-	switch (state) {
+/*	switch (state) {
 	case 0:
 		//cout << "Arm: In state 0" << endl;
-		armSolenoid->Set(DoubleSolenoid::Value::kForward);
+		armSolenoid->Set(DoubleSolenoid::Value::kReverse);
 		if (stick->GetRawButton(armTrigger)) {
 			state = 2;
 			break;
@@ -59,7 +59,7 @@ void Arm::ArmTeleopPeriodic() {
 		break;
 	case 1:
 		//cout << "Arm: In state 1" << endl;
-		armSolenoid->Set(DoubleSolenoid::Value::kReverse);
+		armSolenoid->Set(DoubleSolenoid::Value::kForward);
 		if (stick->GetRawButton(armTrigger)) {
 			state = 3;
 			break;
@@ -79,13 +79,13 @@ void Arm::ArmTeleopPeriodic() {
 			break;
 		}
 		break;
-	}
+	}*/
 
 	switch (state2) {
 	case 0:
 		//cout << "Arm: In state 0" << endl;
-		armSolenoid2->Set(DoubleSolenoid::Value::kForward);
 		if (stick->GetRawButton(armTrigger2)) {
+			armSolenoid2->Set(DoubleSolenoid::Value::kForward);
 			state2 = 2;
 			break;
 		}

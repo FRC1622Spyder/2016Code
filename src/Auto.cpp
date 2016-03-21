@@ -15,6 +15,8 @@ void Auto::AutoInit() {
 	backLeftMotorCANTalonID = prefs->GetInt("backLeftMotorCANTalonID");
 	wheelCircumfrence = prefs->GetDouble("wheelCircumfrence");
 	driveRatio = 8.45;
+	autoDistance = 100;
+
 
 	// assign motors
 	leftBackMotor = new CANTalon(backLeftMotorCANTalonID);
@@ -22,9 +24,9 @@ void Auto::AutoInit() {
 	leftFrontMotor = new CANTalon(frontLeftMotorCANTalonID);
 	rightFrontMotor = new CANTalon(frontRightMotorCANTalonID);
 
-	// invert left motors
-	leftBackMotor->SetInverted(true);
-	leftFrontMotor->SetInverted(true);
+	// invert right motors
+	rightBackMotor->SetInverted(true);
+	rightFrontMotor->SetInverted(true);
 
 	//Set drive motors to vBus
 	leftBackMotor->SetControlMode(CANSpeedController::kPercentVbus);
@@ -44,6 +46,19 @@ void Auto::AutoInit() {
 	rightBackMotor->SetFeedbackDevice(CANTalon::QuadEncoder);
 	rightBackMotor->ConfigEncoderCodesPerRev(20);
 
+	// set PID
+	leftBackMotor->SelectProfileSlot(0);
+	rightBackMotor->SelectProfileSlot(0);
+	leftBackMotor->SetPID(0.8f, 0.0f, 0.0f, 0.0f);
+	rightBackMotor->SetPID(0.8f, 0.0f, 0.0f, 0.0f);
+	leftFrontMotor->SelectProfileSlot(0);
+	rightFrontMotor->SelectProfileSlot(0);
+	leftFrontMotor->SetPID(0.8f, 0.0f, 0.0f, 0.0f);
+	rightFrontMotor->SetPID(0.8f, 0.0f, 0.0f, 0.0f);
+
+	// set ramp
+	//leftBackMotor->SetVoltageRampRate(10);
+	//rightBackMotor->SetVoltageRampRate(10);
 
 }
 
@@ -64,16 +79,22 @@ void Auto::AutoAutoPeriodic() {
 	// go forward for 3 seconds
 
 	if(timer < 150) {
-		leftSpeedSet(0.5f);
-		rightSpeedSet(0.5f);
+		leftSpeedSet(1.0f);
+		rightSpeedSet(1.0f);
+			std::cout << "timer: " << timer << std::endl;
 	}
 	else {
 		leftSpeedSet(0.0);
 		rightSpeedSet(0.0);
+		//std::cout << "leftDistance: " << leftDistance << std::endl;
+		//std::cout << "rightDistance: " << rightDistance << std::endl;
 	}
 	timer++;
-
+	//leftBackMotor->SetPosition(100);
+	//rightBackMotor->SetPosition(100);
 }
+
+
 
 void Auto::AutoTeleopInit() {
 

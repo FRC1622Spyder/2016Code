@@ -31,6 +31,7 @@ private:
 
 	double wheelCircumfrence;
 	double driveRatio;
+	double rampRate;
 
 public:
 	void DriveInit();

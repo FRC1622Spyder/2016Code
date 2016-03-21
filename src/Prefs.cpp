@@ -1,4 +1,5 @@
 /*
+
  * Prefs.cpp
  *
  *  Created on: Feb 13, 2016
@@ -26,8 +27,11 @@ void Prefs::PrefsInit() {
 	prefs->PutInt("armSolenoidRetractPCMPort3", 7);
 
 	//ENCODEr stuffS
-	prefs->PutFloat("shooterTargetSpeed", 1500.0f);
-	prefs->PutFloat("collectTargetSpeed", 500.0f);
+	prefs->PutFloat("shooterTargetSpeed", 1.0f);
+	prefs->PutFloat("collectTargetSpeed", 0.5f);
+
+	// ramp rate
+	prefs->PutDouble("rampRate", 10.0);
 
 	// CANTalon IDs
 	prefs->PutInt("frontRightMotorCANTalonID", 3);
@@ -53,8 +57,9 @@ void Prefs::PrefsInit() {
 	prefs->PutInt("shooterTrigger", 8);
 	prefs->PutInt("liftUpButton", 4);
 	prefs->PutInt("liftDownButton", 2);
-	prefs->PutInt("armTrigger", 6);
+	//prefs->PutInt("armTrigger", 6);
 	prefs->PutInt("armTrigger2", 5);
 	prefs->PutInt("armTrigger3", 7);
+	prefs->PutInt("piston", 10);
 
 }

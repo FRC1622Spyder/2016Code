@@ -12,9 +12,10 @@ class Arm {
 private:
 
 	// variables used in the code
-	DoubleSolenoid *armSolenoid;
+	// DoubleSolenoid *armSolenoid;
 	DoubleSolenoid *armSolenoid2;
 	DoubleSolenoid *armSolenoid3;
+	// DoubleSolenoid *exsole;
 	int state;
 	int state2;
 	int state3;
@@ -31,6 +32,8 @@ private:
 	int armTrigger2;
 	int armSolenoidExtendPCMPort3;
 	int armSolenoidRetractPCMPort3;
+	int shooterSolenoidExtend;
+	int shooterSolenoidRetract;
 	int armTrigger3;
 	int auxJoystickNumber;
 

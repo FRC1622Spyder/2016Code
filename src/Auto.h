@@ -16,6 +16,7 @@ private:
 	CANTalon *leftFrontMotor;
 	CANTalon *rightFrontMotor;
 
+
 	Preferences *prefs;
 
 	int frontRightMotorCANTalonID;
@@ -26,6 +27,7 @@ private:
 	double wheelCircumfrence;
 	double driveRatio;
 	int timer;
+	double autoDistance;
 
 public:
 	void AutoInit();

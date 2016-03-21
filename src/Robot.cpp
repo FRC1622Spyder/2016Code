@@ -21,9 +21,10 @@ public:
 	Arm arm;
 	Drive drive;
 	Shooter shooter;
-//	Camera camera;
+	// Camera camera;
 	Prefs prefSystem;
 	Auto autoSystem;
+	Compressor *compressor;
 
 	void RobotInit() {
 
@@ -34,7 +35,9 @@ public:
 		drive.DriveInit();
 		shooter.ShooterInit();
 		autoSystem.AutoInit();
-//		camera.CameraInit(); // this subsystem needs to be called last
+		compressor = new Compressor(0);
+		// camera.CameraInit(); // this subsystem needs to be called last
+		//camera.CameraAutoInit();
 	}
 
 	void AutonomousInit() {
@@ -51,7 +54,8 @@ public:
 	}
 
 	void TeleopInit() {
-		//camera.CameraTeleopInit(); // this subsystem needs to be called last
+		compressor->SetClosedLoopControl(true);
+		// camera.CameraTeleopInit(); // this subsystem needs to be called last
 	}
 
 	void TeleopPeriodic() {
@@ -59,18 +63,34 @@ public:
 		arm.ArmTeleopPeriodic();
 		drive.DriveTeleopPeriodic();
 		shooter.ShooterTeleopPeriodic();
-		//camera.CameraTeleopPeriodic(); // this subsystem needs to be called last
+		// camera.CameraAutoPeriodic(); // this subsystem needs to be called last
 	}
 
 	void DisabledPeriodic() {
+		compressor->SetClosedLoopControl(false);
 		lift.LiftDisable();
 		arm.ArmDisable();
 		drive.DriveDisable();
 		shooter.ShooterDisable();
-		autoSystem.AutoDisable();
-		//camera.CameraDisable(); // this subsystem needs to be called last
+    //    autoSystem.AutoDisable();
+		// camera.CameraDisable(); // this subsystem needs to be called last
 	}
 
 };
 
 START_ROBOT_CLASS(Robot)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

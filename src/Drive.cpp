@@ -2,6 +2,7 @@
 #include <cmath>
 #include "Drive.h"
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
@@ -16,6 +17,7 @@ void Drive::DriveInit() {
 	driveJoystickNumber = prefs->GetInt("joystickNumber");
 	leftAxis = prefs->GetInt("leftAxis");
 	rightAxis = prefs->GetInt("rightAxis");
+	rampRate = prefs->GetDouble("rampRate");
 //	wheelCircumfrence = prefs->GetDouble("wheelCircumfrence");
 //	driveRatio = 8.45;
 
@@ -25,6 +27,12 @@ void Drive::DriveInit() {
 	leftFrontMotor = new CANTalon(frontLeftMotorCANTalonID);
 	rightFrontMotor = new CANTalon(frontRightMotorCANTalonID);
 	joy = new Joystick(driveJoystickNumber);
+
+	//set the ramp rate
+	leftBackMotor->SetVoltageRampRate(rampRate);
+	rightBackMotor->SetVoltageRampRate(rampRate);
+	leftFrontMotor->SetVoltageRampRate(rampRate);
+	rightFrontMotor->SetVoltageRampRate(rampRate);
 
 	// invert left motors
 	leftBackMotor->SetInverted(true);
@@ -89,17 +97,19 @@ void Drive::DriveTeleopPeriodic() {
 
 	// cut speed in half if button is pressed
 	if (halfButtonValue) {
-		leftVal = leftVal / 2;
-		rightVal = rightVal / 2;
+		leftBackMotor->SetVoltageRampRate(0);
+		rightBackMotor->SetVoltageRampRate(0);
 	}
+
+
 
 	// create dead zone at 10%
 	leftVal = fabs(leftVal) > 0.1 ? leftVal : 0;
 	rightVal = fabs(rightVal) > 0.1 ? rightVal : 0;
 
 	// limmit speed to 80%
-//	leftVal = leftVal * .8;
-//	rightVal = rightVal * .8;
+	//leftVal = leftVal * .87;
+	//rightVal = rightVal * .87;
 
 	leftSpeedSet(leftVal);
 	rightSpeedSet(rightVal);
@@ -120,11 +130,20 @@ void Drive::allSpeedSet(double s) {
 }
 
 void Drive::leftSpeedSet(double s) {
+
 	leftBackMotor->Set(s);
 	leftFrontMotor->Set(s);
+
 }
 
 void Drive::rightSpeedSet(double s) {
+
 	rightBackMotor->Set(s);
 	rightFrontMotor->Set(s);
+
+
 }
+
+
+
+
