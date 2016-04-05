@@ -27,6 +27,8 @@ void Auto::AutoInit() {
 	// invert right motors
 	rightBackMotor->SetInverted(true);
 	rightFrontMotor->SetInverted(true);
+	leftBackMotor->SetInverted(false);
+	leftFrontMotor->SetInverted(false);
 
 	//Set drive motors to vBus
 	leftBackMotor->SetControlMode(CANSpeedController::kPercentVbus);

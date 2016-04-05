@@ -37,6 +37,8 @@ void Drive::DriveInit() {
 	// invert left motors
 	leftBackMotor->SetInverted(true);
 	leftFrontMotor->SetInverted(true);
+	rightBackMotor->SetInverted(false);
+	rightFrontMotor->SetInverted(false);
 
 	//Set drive motors to vBus
 	leftBackMotor->SetControlMode(CANSpeedController::kPercentVbus);

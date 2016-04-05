@@ -2,10 +2,10 @@
 #include "Arm.h"
 #include "Drive.h"
 #include "Shooter.h"
-//#include "Camera.h"
+#include "Camera.h"
 #include "Lift.h"
 #include "Prefs.h"
-#include "Auto.h"
+#include "Auto.h" //disable
 
 
 
@@ -21,9 +21,9 @@ public:
 	Arm arm;
 	Drive drive;
 	Shooter shooter;
-	// Camera camera;
+	Camera camera;
 	Prefs prefSystem;
-	Auto autoSystem;
+	Auto autoSystem; //disable
 	Compressor *compressor;
 
 	void RobotInit() {
@@ -34,22 +34,22 @@ public:
 		arm.ArmInit();
 		drive.DriveInit();
 		shooter.ShooterInit();
-		autoSystem.AutoInit();
+		autoSystem.AutoInit(); //disable
 		compressor = new Compressor(0);
-		// camera.CameraInit(); // this subsystem needs to be called last
-		//camera.CameraAutoInit();
+		 camera.CameraInit(); // this subsystem needs to be called last
+		camera.CameraAutoInit();
 	}
 
 	void AutonomousInit() {
 
 			//Default Auto goes here
-			autoSystem.AutoAutoInit();
+			autoSystem.AutoAutoInit(); //disable
 			//camera.CameraAutoInit(); // this subsystem needs to be called last
 	}
 
 	void AutonomousPeriodic() {
 			//Default Auto goes here
-			autoSystem.AutoAutoPeriodic();
+			autoSystem.AutoAutoPeriodic(); //disable
 			//camera.CameraAutoPeriodic(); // this subsystem needs to be called last
 	}
 
@@ -63,7 +63,7 @@ public:
 		arm.ArmTeleopPeriodic();
 		drive.DriveTeleopPeriodic();
 		shooter.ShooterTeleopPeriodic();
-		// camera.CameraAutoPeriodic(); // this subsystem needs to be called last
+		 camera.CameraAutoPeriodic(); // this subsystem needs to be called last
 	}
 
 	void DisabledPeriodic() {

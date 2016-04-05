@@ -59,7 +59,7 @@ void Camera::PutPixels() {
 
 void Camera::CameraInit() {
 	prefs = Preferences::GetInstance();
-	brightness = prefs->GetInt("brightness", 40);
+	brightness = prefs->GetInt("brightness", 0);
 	cameraSendButton = prefs->GetInt("cameraSendButton", 5);
 	auxJoystickNumber = prefs->GetInt("auxJoystickNumber", 1);
 
@@ -77,10 +77,8 @@ void Camera::CameraDisable() {
 
 void Camera::CameraAutoInit() {
 	camera->OpenCamera();
-	camera->SetExposureHoldCurrent();
-	camera->SetExposureManual(0);
-	camera->SetBrightness(brightness);
-	camera->SetFPS(30);
+	camera->SetExposureAuto();
+	camera->SetFPS(15);
 	camera->UpdateSettings();
 	camera->StartCapture();
 }
