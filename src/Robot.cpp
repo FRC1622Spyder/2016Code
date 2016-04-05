@@ -2,10 +2,10 @@
 #include "Arm.h"
 #include "Drive.h"
 #include "Shooter.h"
-#include "Camera.h"
+#include "Camera.h" //Uncomment this to turn on camera
 #include "Lift.h"
 #include "Prefs.h"
-#include "Auto.h" //disable
+#include "Auto.h"  // Comment out to disable autonomous
 
 
 
@@ -21,9 +21,9 @@ public:
 	Arm arm;
 	Drive drive;
 	Shooter shooter;
-	Camera camera;
+	Camera camera; //Uncomment to enable camera
 	Prefs prefSystem;
-	Auto autoSystem; //disable
+	Auto autoSystem; // Comment out to disable autonomous
 	Compressor *compressor;
 
 	void RobotInit() {
@@ -34,22 +34,22 @@ public:
 		arm.ArmInit();
 		drive.DriveInit();
 		shooter.ShooterInit();
-		autoSystem.AutoInit(); //disable
+		autoSystem.AutoInit(); // Comment out to disable autonomous
 		compressor = new Compressor(0);
 		 camera.CameraInit(); // this subsystem needs to be called last
-		camera.CameraAutoInit();
+		camera.CameraAutoInit();  //Uncomment these to enable camera
 	}
 
 	void AutonomousInit() {
 
 			//Default Auto goes here
-			autoSystem.AutoAutoInit(); //disable
+			autoSystem.AutoAutoInit(); // Comment out to disable autonomous
 			//camera.CameraAutoInit(); // this subsystem needs to be called last
 	}
 
 	void AutonomousPeriodic() {
 			//Default Auto goes here
-			autoSystem.AutoAutoPeriodic(); //disable
+			autoSystem.AutoAutoPeriodic(); // Comment out to disable autonomous
 			//camera.CameraAutoPeriodic(); // this subsystem needs to be called last
 	}
 
@@ -63,7 +63,7 @@ public:
 		arm.ArmTeleopPeriodic();
 		drive.DriveTeleopPeriodic();
 		shooter.ShooterTeleopPeriodic();
-		 camera.CameraAutoPeriodic(); // this subsystem needs to be called last
+		camera.CameraAutoPeriodic(); // this subsystem needs to be called last - uncomment to enable camera
 	}
 
 	void DisabledPeriodic() {
@@ -73,7 +73,7 @@ public:
 		drive.DriveDisable();
 		shooter.ShooterDisable();
     //    autoSystem.AutoDisable();
-		// camera.CameraDisable(); // this subsystem needs to be called last
+		camera.CameraDisable(); // this subsystem needs to be called last - uncomment to enable
 	}
 
 };

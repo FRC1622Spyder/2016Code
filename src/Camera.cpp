@@ -59,11 +59,11 @@ void Camera::PutPixels() {
 
 void Camera::CameraInit() {
 	prefs = Preferences::GetInstance();
-	brightness = prefs->GetInt("brightness", 0);
+	brightness = prefs->GetInt("brightness", 40);
 	cameraSendButton = prefs->GetInt("cameraSendButton", 5);
 	auxJoystickNumber = prefs->GetInt("auxJoystickNumber", 1);
 
-	camera = new USBCamera("cam0", true);
+	camera = new USBCamera("cam0", true); //cam0 is the name to enter in web interface
 	stick = new Joystick(auxJoystickNumber);
 	autoTargetStart = false;
 	lw = LiveWindow::GetInstance();
@@ -77,10 +77,13 @@ void Camera::CameraDisable() {
 
 void Camera::CameraAutoInit() {
 	camera->OpenCamera();
-	camera->SetExposureAuto();
+//	camera->SetExposureHoldCurrent();
+//	camera->SetExposureManual(0);
+//	camera->SetBrightness(brightness);
 	camera->SetFPS(15);
 	camera->UpdateSettings();
 	camera->StartCapture();
+	camera->SetExposureAuto();
 }
 
 void Camera::CameraAutoPeriodic() {
