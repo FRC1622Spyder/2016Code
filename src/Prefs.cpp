@@ -57,9 +57,9 @@ void Prefs::PrefsInit() {
 	prefs->PutInt("shooterTrigger", 8);
 	prefs->PutInt("liftUpButton", 4);
 	prefs->PutInt("liftDownButton", 2);
-	//prefs->PutInt("armTrigger", 6);
-	prefs->PutInt("armTrigger2", 5);
-	prefs->PutInt("armTrigger3", 7);
+	//prefs->PutInt("armTrigger2", 6); //may need to change depending on pcm ports
+	prefs->PutInt("altIntakeIn", 5);
+	prefs->PutInt("altIntakeOut", 7);
 	prefs->PutInt("piston", 10);
 
 }

@@ -24,10 +24,13 @@ void Shooter::ShooterInit() {
 	shooterSolenoidRetract);
 	collectConveyerInButton = prefs->GetInt("collectConveyerInButton");
 	collectConveyerOutButton = prefs->GetInt("collectConveyerOutButton");
+	altIntakeIn = prefs->GetInt("altIntakeIn");
+	altIntakeOut = prefs->GetInt("altIntakeOut");
 	piston = prefs->GetInt("piston");
 
 	timer = 0;
 	choice = 0;
+	counter = 0;
 	targetSpeed = prefs->GetFloat("shooterTargetSpeed");
 //	actualTopSpeed = 0.0f;
 //	actualLowerSpeed = 0.0f;
@@ -107,11 +110,24 @@ void Shooter::ShooterTeleopPeriodic() {
 		targetSpeed = prefs->GetFloat("shooterTargetSpeed"); // get new target speed from prefs file in case changed through dashboard
 		topWheel->Set(targetSpeed);
 		lowerWheel->Set(targetSpeed);
+
+	} else if(shooterJoystick->GetRawButton(altIntakeIn)){
+			collectConveyorMotor->Set(collectVBusValue);
+
+	} else if(shooterJoystick->GetRawButton(altIntakeOut)){
+		collectConveyorMotor->Set(collectVBusValue * -1);
+
 	} else {
 		topWheel->Set(0);
 		lowerWheel->Set(0);
 		collectConveyorMotor->Set(0);
 	}
+
+	if(shooterJoystick->GetRawButton(altIntakeIn))
+	{
+		collectConveyorMotor->Set(collectVBusValue);
+	}
+
 
 	switch (choice) {
 		case 0:
@@ -125,10 +141,12 @@ void Shooter::ShooterTeleopPeriodic() {
 		case 1:
 			//cout << "Arm: In state 1" << endl;
 			exsole->Set(DoubleSolenoid::Value::kForward);
-			if (shooterJoystick->GetRawButton(piston)) {
-				choice = 3;
+			if (counter > 200) {
+				choice = 0;
+				counter = 0;
 				break;
 			}
+			counter++;
 			break;
 		case 2:
 			//cout << "Arm: In state 2" << endl;
@@ -137,14 +155,9 @@ void Shooter::ShooterTeleopPeriodic() {
 				break;
 			}
 			break;
-		case 3:
-			//cout << "Arm: In state 3" << endl;
-			if (!shooterJoystick->GetRawButton(piston)) {
-				choice = 0;
-				break;
-			}
-			break;
+
 		}
+
 
 }
 

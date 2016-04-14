@@ -37,8 +37,11 @@ private:
 	int collectConveyorMotorCANTalonID;
 	int collectConveyerInButton;
 	int collectConveyerOutButton;
+	int altIntakeIn;
+	int altIntakeOut;
 	int choice;
 	int piston;
+	int counter;
 
 
 	bool WithinPercent(float target,float actual);
