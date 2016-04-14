@@ -123,11 +123,6 @@ void Shooter::ShooterTeleopPeriodic() {
 		collectConveyorMotor->Set(0);
 	}
 
-	if(shooterJoystick->GetRawButton(altIntakeIn))
-	{
-		collectConveyorMotor->Set(collectVBusValue);
-	}
-
 
 	switch (choice) {
 		case 0:
