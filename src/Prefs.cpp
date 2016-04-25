@@ -31,8 +31,7 @@ void Prefs::PrefsInit() {
 	prefs->PutFloat("collectTargetSpeed", 0.5f);
 
 	// ramp rate
-	prefs->PutDouble("rampRate", 13.0);
-
+	prefs->PutDouble("rampRate", 0.0);
 	// CANTalon IDs
 	prefs->PutInt("frontRightMotorCANTalonID", 3);
 	prefs->PutInt("frontLeftMotorCANTalonID", 9);

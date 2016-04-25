@@ -2,7 +2,7 @@
 #include "Arm.h"
 #include "Drive.h"
 #include "Shooter.h"
-#include "Camera.h" //Uncomment this to turn on camera
+//#include "Camera.h" //Uncomment this to turn on camera
 #include "Lift.h"
 #include "Prefs.h"
 #include "Auto.h"  // Comment out to disable autonomous
@@ -21,7 +21,7 @@ public:
 	Arm arm;
 	Drive drive;
 	Shooter shooter;
-	Camera camera; //Uncomment to enable camera
+	//Camera camera; //Uncomment to enable camera
 	Prefs prefSystem;
 	Auto autoSystem; // Comment out to disable autonomous
 	Compressor *compressor;
@@ -36,8 +36,8 @@ public:
 		shooter.ShooterInit();
 		autoSystem.AutoInit(); // Comment out to disable autonomous
 		compressor = new Compressor(0);
-		 camera.CameraInit(); // this subsystem needs to be called last
-		camera.CameraAutoInit();  //Uncomment these to enable camera
+		// camera.CameraInit(); // this subsystem needs to be called last
+		//camera.CameraAutoInit();  //Uncomment these to enable camera
 	}
 
 	void AutonomousInit() {
@@ -63,7 +63,7 @@ public:
 		arm.ArmTeleopPeriodic();
 		drive.DriveTeleopPeriodic();
 		shooter.ShooterTeleopPeriodic();
-		camera.CameraAutoPeriodic(); // this subsystem needs to be called last - uncomment to enable camera
+		//camera.CameraAutoPeriodic(); // this subsystem needs to be called last - uncomment to enable camera
 	}
 
 	void DisabledPeriodic() {
@@ -73,7 +73,7 @@ public:
 		drive.DriveDisable();
 		shooter.ShooterDisable();
     //    autoSystem.AutoDisable();
-		camera.CameraDisable(); // this subsystem needs to be called last - uncomment to enable
+		//camera.CameraDisable(); // this subsystem needs to be called last - uncomment to enable
 	}
 
 };

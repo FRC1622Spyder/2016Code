@@ -28,12 +28,6 @@ void Drive::DriveInit() {
 	rightFrontMotor = new CANTalon(frontRightMotorCANTalonID);
 	joy = new Joystick(driveJoystickNumber);
 
-	//set the ramp rate
-	leftBackMotor->SetVoltageRampRate(rampRate);
-	rightBackMotor->SetVoltageRampRate(rampRate);
-	leftFrontMotor->SetVoltageRampRate(rampRate);
-	rightFrontMotor->SetVoltageRampRate(rampRate);
-
 	// invert left motors
 	leftBackMotor->SetInverted(true);
 	leftFrontMotor->SetInverted(true);
@@ -97,6 +91,11 @@ void Drive::DriveTeleopPeriodic() {
 //	cout << "Drive Left: " << leftVal << endl;
 //	cout << "Drive Right: " << rightVal << endl;
 
+		leftBackMotor->SetVoltageRampRate(rampRate);
+		rightBackMotor->SetVoltageRampRate(rampRate);
+		leftFrontMotor->SetVoltageRampRate(rampRate);
+		rightFrontMotor->SetVoltageRampRate(rampRate);
+
 	// cut speed in half if button is pressed
 	if (halfButtonValue) {
 		leftBackMotor->SetVoltageRampRate(0);
@@ -105,11 +104,12 @@ void Drive::DriveTeleopPeriodic() {
 
 
 
+
 	// create dead zone at 10%
 	leftVal = fabs(leftVal) > 0.1 ? leftVal : 0;
 	rightVal = fabs(rightVal) > 0.1 ? rightVal : 0;
 
-	// limmit speed to 80%
+	// limit speed to 80%
 	//leftVal = leftVal * .87;
 	//rightVal = rightVal * .87;
 

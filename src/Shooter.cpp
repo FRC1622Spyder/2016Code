@@ -129,26 +129,19 @@ void Shooter::ShooterTeleopPeriodic() {
 			//cout << "Arm: In state 0" << endl;
 			exsole->Set(DoubleSolenoid::Value::kReverse);
 			if (shooterJoystick->GetRawButton(piston)) {
-				choice = 2;
+				choice = 1;
 				break;
 			}
 			break;
 		case 1:
 			//cout << "Arm: In state 1" << endl;
 			exsole->Set(DoubleSolenoid::Value::kForward);
-			if (counter > 200) {
+			if (counter > 5) {
 				choice = 0;
 				counter = 0;
 				break;
 			}
 			counter++;
-			break;
-		case 2:
-			//cout << "Arm: In state 2" << endl;
-			if (!shooterJoystick->GetRawButton(piston)) {
-				choice = 1;
-				break;
-			}
 			break;
 
 		}
