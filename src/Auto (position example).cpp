@@ -1,4 +1,4 @@
-/*
+#if 0
 #include "WPILib.h"
 #include "Auto.h"
 #include <cmath>
@@ -105,4 +105,4 @@ void Auto::AutoTeleopInit() {
 void Auto::AutoTeleopPeriodic() {
 
 }
-*/
+#endif

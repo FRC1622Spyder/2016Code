@@ -1,4 +1,5 @@
 #include "WPILib.h"
+#include "Config.h"
 #include "NetworkTables/NetworkTable.h"
 #include "Camera.h"
 

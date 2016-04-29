@@ -1,4 +1,5 @@
 #include "WPILib.h"
+#include "Config.h"
 #include "Shooter.h"
 #include <iostream>
 #include <cmath>

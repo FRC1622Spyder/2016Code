@@ -1,4 +1,5 @@
 #include "WPILib.h"
+#include "Config.h"
 #include "Lift.h"
 #include <iostream>
 #include <cmath>

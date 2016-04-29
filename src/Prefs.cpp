@@ -7,6 +7,7 @@
  */
 
 #include "WPILib.h"
+#include "Config.h"
 #include "Prefs.h"
 
 // List of all configurable preferences and default values.

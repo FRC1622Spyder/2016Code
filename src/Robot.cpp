@@ -1,11 +1,12 @@
 #include "WPILib.h"
+#include "Config.h"
 #include "Arm.h"
 #include "Drive.h"
 #include "Shooter.h"
-//#include "Camera.h" //Uncomment this to turn on camera
+#include "Camera.h" // Does not hurt to leave this on, even if camera disabled.
 #include "Lift.h"
 #include "Prefs.h"
-#include "Auto.h"  // Comment out to disable autonomous
+#include "Auto.h"  // Does not hurt to leave this on, even if auto disabled.
 
 
 
@@ -21,9 +22,13 @@ public:
 	Arm arm;
 	Drive drive;
 	Shooter shooter;
-	//Camera camera; //Uncomment to enable camera
+#if USE_CAMERA == 1
+	Camera camera;
+#endif
 	Prefs prefSystem;
-	Auto autoSystem; // Comment out to disable autonomous
+#if USE_AUTONOMOUS == 1
+	Auto autoSystem;
+#endif
 	Compressor *compressor;
 
 	void RobotInit() {
@@ -34,28 +39,42 @@ public:
 		arm.ArmInit();
 		drive.DriveInit();
 		shooter.ShooterInit();
-		autoSystem.AutoInit(); // Comment out to disable autonomous
+#if USE_AUTONOMOUS == 1
+		autoSystem.AutoInit();
+#endif
 		compressor = new Compressor(0);
-		// camera.CameraInit(); // this subsystem needs to be called last
-		//camera.CameraAutoInit();  //Uncomment these to enable camera
+#if USE_CAMERA == 1
+		camera.CameraInit(); // this subsystem needs to be called last
+		camera.CameraAutoInit();
+#endif
 	}
 
 	void AutonomousInit() {
 
 			//Default Auto goes here
-			autoSystem.AutoAutoInit(); // Comment out to disable autonomous
-			//camera.CameraAutoInit(); // this subsystem needs to be called last
+#if USE_AUTONOMOUS == 1
+			autoSystem.AutoAutoInit();
+#endif
+#if USE_CAMERA == 1
+			camera.CameraAutoInit(); // this subsystem needs to be called last
+#endif
 	}
 
 	void AutonomousPeriodic() {
 			//Default Auto goes here
-			autoSystem.AutoAutoPeriodic(); // Comment out to disable autonomous
-			//camera.CameraAutoPeriodic(); // this subsystem needs to be called last
+#if USE_AUTONOMOUS == 1
+			autoSystem.AutoAutoPeriodic();
+#endif
+#if USE_CAMERA == 1
+			camera.CameraAutoPeriodic(); // this subsystem needs to be called last
+#endif
 	}
 
 	void TeleopInit() {
 		compressor->SetClosedLoopControl(true);
-		// camera.CameraTeleopInit(); // this subsystem needs to be called last
+#if USE_CAMERA == 1
+		camera.CameraTeleopInit(); // this subsystem needs to be called last
+#endif
 	}
 
 	void TeleopPeriodic() {
@@ -63,7 +82,9 @@ public:
 		arm.ArmTeleopPeriodic();
 		drive.DriveTeleopPeriodic();
 		shooter.ShooterTeleopPeriodic();
-		//camera.CameraAutoPeriodic(); // this subsystem needs to be called last - uncomment to enable camera
+#if USE_CAMERA == 1
+		camera.CameraAutoPeriodic(); // this subsystem needs to be called last
+#endif
 	}
 
 	void DisabledPeriodic() {
@@ -72,8 +93,12 @@ public:
 		arm.ArmDisable();
 		drive.DriveDisable();
 		shooter.ShooterDisable();
+#if USE_AUTONOMOUS == 1
     //    autoSystem.AutoDisable();
-		//camera.CameraDisable(); // this subsystem needs to be called last - uncomment to enable
+#endif
+#if USE_CAMERA == 1
+		camera.CameraDisable(); // this subsystem needs to be called last
+#endif
 	}
 
 };
