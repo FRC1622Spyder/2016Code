@@ -31,7 +31,7 @@ void Prefs::PrefsInit() {
 	prefs->PutFloat("collectTargetSpeed", 0.5f);
 
 	// ramp rate
-	prefs->PutDouble("rampRate", 0.0);
+	prefs->PutDouble("rampRate", 12.0);
 	// CANTalon IDs
 	prefs->PutInt("frontRightMotorCANTalonID", 3);
 	prefs->PutInt("frontLeftMotorCANTalonID", 9);
@@ -56,9 +56,10 @@ void Prefs::PrefsInit() {
 	prefs->PutInt("shooterTrigger", 8);
 	prefs->PutInt("liftUpButton", 4);
 	prefs->PutInt("liftDownButton", 2);
-	//prefs->PutInt("armTrigger2", 6); //may need to change depending on pcm ports
+	prefs->PutInt("armTrigger2", 9); //may need to change depending on pcm ports
 	prefs->PutInt("altIntakeIn", 5);
 	prefs->PutInt("altIntakeOut", 7);
+	prefs->PutInt("flashlight", 6);
 	prefs->PutInt("piston", 10);
 
 }

@@ -20,13 +20,13 @@ void Shooter::ShooterInit() {
 	firePhase = 0;
 	shooterJoystick = new Joystick(auxJoystickNumber);
 	shooterButtonvalue = false;
-	exsole = new DoubleSolenoid(pcmCANID, shooterSolenoidExtend,
-	shooterSolenoidRetract);
+	exsole = new DoubleSolenoid(pcmCANID, shooterSolenoidExtend, shooterSolenoidRetract);
 	collectConveyerInButton = prefs->GetInt("collectConveyerInButton");
 	collectConveyerOutButton = prefs->GetInt("collectConveyerOutButton");
 	altIntakeIn = prefs->GetInt("altIntakeIn");
 	altIntakeOut = prefs->GetInt("altIntakeOut");
 	piston = prefs->GetInt("piston");
+	flashlightRelay = new Relay(3);
 
 	timer = 0;
 	choice = 0;
@@ -78,6 +78,7 @@ void Shooter::ShooterDisable() {
 	topWheel->Set(0);
 	exsole->Set(DoubleSolenoid::Value::kReverse);
 	collectConveyorMotor->Set(0.0f);
+	//flashlightRelay->Set(Relay::Value::kOff);
 }
 
 void Shooter::ShooterAutoInit() {
@@ -94,7 +95,15 @@ void Shooter::ShooterTeleopInit() {
 
 void Shooter::ShooterTeleopPeriodic() {
 
-
+//FLASHLIGHT CODE
+	if(shooterJoystick->GetRawButton(6)) {
+		flashlightRelay->Set(Relay::Value::kForward);
+	}
+	else{
+		flashlightRelay->Set(Relay::Value::kOff);
+	}
+//
+//	flashlightRelay->Set(Relay::Value::kForward);
 	if (shooterJoystick->GetRawButton(collectConveyerInButton)) {
 		collectConveyorMotor->Set(collectVBusValue);
 		lowerWheel->Set(collectVBusValue);

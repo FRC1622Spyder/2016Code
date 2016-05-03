@@ -24,6 +24,7 @@ private:
 	float collectVBusValue;
 	float collectTargetSpeed;
 
+	Relay *flashlightRelay;
 
 	Preferences *prefs;
 	int pcmCANID;
@@ -39,6 +40,7 @@ private:
 	int collectConveyerOutButton;
 	int altIntakeIn;
 	int altIntakeOut;
+	int flashlight;
 	int choice;
 	int piston;
 	int counter;

@@ -36,7 +36,7 @@ public:
 		shooter.ShooterInit();
 		autoSystem.AutoInit(); // Comment out to disable autonomous
 		compressor = new Compressor(0);
-		// camera.CameraInit(); // this subsystem needs to be called last
+		//camera.CameraInit(); // this subsystem needs to be called last
 		//camera.CameraAutoInit();  //Uncomment these to enable camera
 	}
 
